@@ -1,0 +1,3 @@
+[submodule "src/xmodule"]
+	path = src/xmodule
+	url = https://github.com/thruthesky/xmodule

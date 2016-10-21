@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Post List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <xapi-post-list
+    #xapiPostList
+    [slug]="slug"
+    (view)="onClickView( $event )"
+    (vote)="onClicVote( $event )"
+  ></xapi-post-list>
+  
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<ion-list radio-group>
+  <ion-list-header>
+    {{ 'Select your language' }}
+  </ion-list-header>
+
+
+  <ion-item>
+    <ion-label>{{ 'English' }}</ion-label>
+    <ion-radio (click)="onClickLanguage('en')" checked="{{ languages.en }}" value="en"></ion-radio>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label>{{ 'Korean' }}</ion-label>
+    <ion-radio (click)="onClickLanguage('ko')" checked="{{ languages.ko }}" value="ko"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>{{ 'Chinese' }}</ion-label>
+    <ion-radio (click)="onClickLanguage('ch')" checked="{{ languages.ch }}" value="ch"></ion-radio>
+  </ion-item>
+
+</ion-list>
+
+</ion-content>

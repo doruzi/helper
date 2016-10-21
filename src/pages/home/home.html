@@ -1,0 +1,27 @@
+<ion-header>
+  <xapi-header #Header [appTitle]="appTitle"></xapi-header>
+</ion-header>
+
+<ion-content padding>
+  <section>
+    <ion-list>
+      <ion-card class="card-background-page">
+        <img src="assets/img/tmp-3.png" />
+        <div class="card-title">Housemaid on the Job</div>
+        <div class="card-subtitle">Fast - Easy - Convenient</div>
+      </ion-card>
+      <ion-row wrap>
+        <ion-col class="page_button" width-33 *ngFor=" let page of pages " (click)=" openPage( page )">
+          <ion-card no-margin>
+            <ion-card-header>
+              <ion-icon name="{{ page.icon }}"></ion-icon>
+            </ion-card-header>
+            <ion-card-content>
+              {{ page.title }}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </section>
+</ion-content>

@@ -1,0 +1,25 @@
+.search-page {
+  .spinner-container {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+  ion-item {
+    ion-avatar {
+      img {
+        width: 80px;
+        height: 80px;
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 50%;
+      }
+    }
+    ion-note {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 12px;
+    }
+  }
+}
+
