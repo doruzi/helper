@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-//import { ForumCategoryPage } from '../forum-category/forum-category';
 import { PostListPage } from '../post-list/post-list';
 import { PostEditPage } from '../post-edit/post-edit';
 import { PolicyPage } from '../policy/policy';
@@ -19,6 +18,8 @@ interface PanelMenu {
   templateUrl: 'home.html'
 })
 export class HomePage {
+  appTitle: string = "Helper App";
+
   pages: Array<PanelMenu> = [
     { title: 'FORUM',     component: PostListPage, icon : 'chatboxes' },
     { title: 'POST',  component: PostEditPage, icon : 'create' },

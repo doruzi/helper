@@ -17,9 +17,12 @@ import { SearchPage } from '../pages/search/search';
 
 
 import { XModule } from '../xmodule/modules/core';
+import {HelperHeaderComponent} from "../components/header/header";
+
 @NgModule({
   declarations: [
     MyApp,
+    HelperHeaderComponent,
     HomePage,
     /*LoginPage,
      RegisterPage,
@@ -39,6 +42,7 @@ import { XModule } from '../xmodule/modules/core';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HelperHeaderComponent,
     HomePage,
     /*LoginPage,
      RegisterPage,

@@ -1,5 +1,5 @@
 <ion-header>
-  <xapi-header #Header [appTitle]="appTitle"></xapi-header>
+  <helper-header #Header [appTitle]="appTitle"></helper-header>
 </ion-header>
 
 <ion-content padding>
@@ -12,14 +12,10 @@
       </ion-card>
       <ion-row wrap>
         <ion-col class="page_button" width-33 *ngFor=" let page of pages " (click)=" openPage( page )">
-          <ion-card no-margin>
-            <ion-card-header>
-              <ion-icon name="{{ page.icon }}"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-              {{ page.title }}
-            </ion-card-content>
-          </ion-card>
+          <button ion-button>
+            <ion-icon name="{{ page.icon }}"></ion-icon>
+            {{ page.title }}
+          </button>
         </ion-col>
       </ion-row>
     </ion-list>

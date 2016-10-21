@@ -33,8 +33,6 @@ export class SearchPage {
   searching: boolean = false;
   private moreButton = [];
   private posts;
-  private urlDefaultPrimaryPhotoBoy = "assets/img/boy.png";
-  private urlDefaultPrimaryPhotoGirl = "assets/img/girl.png";
 
   private data: SearchData = {
     name: '',

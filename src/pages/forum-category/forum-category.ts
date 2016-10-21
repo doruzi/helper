@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Xapi } from '../../xmodule/providers/xapi';
-import * as xi from '../../xmodule/interfaces/xapi';
 import { PostListPage } from '../post-list/post-list';
 /*
  Generated class for the ForumCategory page.
@@ -17,7 +15,6 @@ export class ForumCategoryPage {
 
   constructor(
     public navCtrl: NavController,
-    private x: Xapi
   ) {
 
   }

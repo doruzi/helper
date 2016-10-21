@@ -7,8 +7,6 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'setting.html'
 })
 export class SettingPage {
-  private languages = { en: false, ko: false, ch: false };
-
   static initialized: boolean = false;
   constructor(private navCtrl: NavController,
     ) {
