@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { PostListComponent } from '../../xmodule/components/post-list/post-list';
+import { Xapi } from "../../xmodule/providers/xapi";
 
 @Component({
   selector: 'page-post-list',
@@ -10,18 +11,20 @@ export class PostListPage {
   @ViewChild('xapiPostList') postListComponent: PostListComponent;
   slug: string;
   constructor(
-    public navCtrl: NavController,
-    private navParams: NavParams
-    ) {
-      console.log( 'PostListPage::constructor()', navParams.data);
-      this.slug = this.navParams.get( 'slug' );
-    }
+      public navCtrl: NavController,
+      private navParams: NavParams,
+      private xapi: Xapi
+  ) {
+    console.log( 'PostListPage::constructor()', navParams.data);
+    this.slug = this.navParams.get( 'slug' );
+    xapi.serverUrl = 'http://work.org/wordpress/index.php';
+  }
 
 
   ionViewDidLoad() {
     console.log("PostListPage::ionViewDidLoad()", this.postListComponent.slug);
   }
-  
+
 
   /**
    * 부모 컴포넌트에서만 ion-infinite-scroll 을 사용 할 수 있으므로
@@ -39,5 +42,5 @@ export class PostListPage {
       }
     });
   }
-  
+
 }

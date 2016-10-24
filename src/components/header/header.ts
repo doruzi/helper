@@ -1,9 +1,3 @@
-/**
- * app-header.ts
- *
- * 이 컴포넌트는 각 프로젝트 마다 커스터마이징을 해야한다.
- *
- */
 import { Component, Input } from '@angular/core';
 import { NavController, Events } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
@@ -95,7 +89,7 @@ export class HelperHeaderComponent {
 
   onClickPost( ) {
     console.log('HeaderComponent::onClickPost()');
-    PageController.push( 'postEdit', this );
+    PageController.push( 'PostEditPage', this );
   }
 
   onClickSearch() {
