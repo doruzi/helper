@@ -34,7 +34,7 @@ export class HomePage {
     x.serverUrl = "http://work.org/wordpress/index.php";
 //    setTimeout( () => navCtrl.push( PostEditPage ), 1000 );
 //    setTimeout( () => navCtrl.push( PostListPage, {slug: 'housemaid'} ), 1000 );
-    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
+//    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
   }
 
   openPage( page ) {

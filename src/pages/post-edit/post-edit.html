@@ -15,39 +15,69 @@
 
 <ion-content padding>
 
-  <ion-list>
+  <ion-card>
+    <div><img [src]="urlPhoto"></div>
+    <input type="file" (change)="onChangeFileBrowser($event)">
+  </ion-card>
+  <ion-list text-wrap>
 
-    <ion-item>
-      <div><img [src]="urlPhoto"></div>
-      <input type="file" (change)="onChangeFileBrowser($event)">
-    </ion-item>
-
+    <ion-item-divider light>
+      <h2>Fill in all Information</h2>
+    </ion-item-divider>
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input [(ngModel)]="password"></ion-input>
+      <ion-input [(ngModel)]="post.password"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Title</ion-label>
-      <ion-input [(ngModel)]="post_title"></ion-input>
+      <ion-label floating>First Name</ion-label>
+      <ion-input [(ngModel)]="post.first_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input [(ngModel)]="post.last_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Middle Name</ion-label>
+      <ion-input [(ngModel)]="post.middle_name" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Gender</ion-label>
+      <ion-select [(ngModel)]="post.gender" placeholder="Select Gender" margin-left>
+        <ion-option value="F" >Female</ion-option>
+        <ion-option value="M" >Male</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Phone Number</ion-label>
-      <ion-input [(ngModel)]="mobile"></ion-input>
+      <ion-input [(ngModel)]="post.mobile"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label flaoting>Gender</ion-label>
-      <ion-input [(ngModel)]="gender" placeholder="M/F"></ion-input>
+      <ion-label floating>Address</ion-label>
+      <ion-input text-wrap [(ngModel)]="post.address" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Title</ion-label>
+      <ion-input [(ngModel)]="post.post_title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Content</ion-label>
+      <ion-textarea [(ngModel)]="post.post_content" ></ion-textarea>
     </ion-item>
 
   </ion-list>
 
 
-<div *ngIf="loader">Connecting to server...</div>
-  
+  <div *ngIf="loader">Connecting to server...</div>
+
 
 
 
