@@ -53,7 +53,6 @@ export class PostEditPage {
     this.postEditService.submit( post, res => {
       this.loader = false;
       console.log("onClickPost::callback(), ", res );
-      // 
     }, err => {
       this.loader = false;
       console.log("err");
