@@ -6,8 +6,9 @@ import { PostEditPage } from '../post-edit/post-edit';
 import { PolicyPage } from '../policy/policy';
 import { SettingPage } from '../setting/setting';
 import { SearchPage } from "../search/search";
+import { Xapi } from '../../xmodule/providers/xapi';
 
-interface PanelMenu {
+export interface PanelMenu {
   title: string;
   component: any;
   icon?:string;
@@ -27,8 +28,13 @@ export class HomePage {
     { title: 'SEARCH',   component: SearchPage, icon : 'search' },
     { title: 'SETTING',   component: SettingPage, icon : 'options' }
   ];
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController,
+    private x: Xapi
+  ) {
+    x.serverUrl = "http://work.org/wordpress/index.php";
+//    setTimeout( () => navCtrl.push( PostEditPage ), 1000 );
+//    setTimeout( () => navCtrl.push( PostListPage, {slug: 'housemaid'} ), 1000 );
+    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
   }
 
   openPage( page ) {
