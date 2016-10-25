@@ -14,7 +14,7 @@ export class AgeCalculator implements PipeTransform{
   /*
     Takes a value and makes it lowercase.
    */
-  transform(value, args) {
+  transform(value) {
     let birthday = new Date( value ).getTime();
     let ageDifMs = Date.now() - birthday;
     let ageDate = new Date(ageDifMs);

@@ -32,7 +32,7 @@ export class HomePage {
     private x: Xapi
   ) {
     x.serverUrl = "http://work.org/wordpress/index.php";
-//    setTimeout( () => navCtrl.push( PostEditPage ), 1000 );
+    setTimeout( () => navCtrl.push( PostEditPage ), 600 );
 //    setTimeout( () => navCtrl.push( PostListPage, {slug: 'housemaid'} ), 1000 );
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
   }

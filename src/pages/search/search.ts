@@ -5,7 +5,7 @@ import { Library as lib } from '../../xmodule/functions/library';
 import 'rxjs/add/operator/debounceTime';
 
 
-interface SearchData {
+export interface SearchData {
   name: string;
   address: string;
   male: boolean;
@@ -16,7 +16,7 @@ interface SearchData {
   }
 }
 
-interface AgeSearchRange {
+export interface AgeSearchRange {
   lower: number;
   upper: number;
 }
@@ -36,7 +36,7 @@ export class SearchPage {
   moreButton = [];
   posts;
 
-  private data: SearchData = {
+  data: SearchData = {
     name: '',
     address: '',
     male: false,
@@ -48,7 +48,7 @@ export class SearchPage {
                private x: Xapi
 
   ) {
-    this.search();
+    this.search( );
   }
 
   showAgeRange() {
@@ -61,7 +61,7 @@ export class SearchPage {
   hideLoader() {
     this.searching = false;
   }
-  search() {
+  search( $event? ) {
     this.showLoader();
     console.log("search()");
     console.log("Age " + this.searchByAge.lower + " between " + this.searchByAge.upper  );

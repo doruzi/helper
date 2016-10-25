@@ -16,9 +16,13 @@
 <ion-content padding>
 
   <ion-card>
-    <div><img [src]="urlPhoto"></div>
-    <input type="file" (change)="onChangeFileBrowser($event)">
+    <div (click)="onClickPhoto()"><img [src]="urlPhoto"></div>
+    <input *ngIf=" browser " type="file" (change)="onChangeFileBrowser($event)">
   </ion-card>
+
+  <hr>
+
+2
   <ion-list text-wrap>
 
     <ion-item-divider light>
