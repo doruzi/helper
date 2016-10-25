@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
 import { Library as lib } from '../../xmodule/functions/library';
 import 'rxjs/add/operator/debounceTime';
@@ -154,7 +154,7 @@ export class SearchPage {
     else this.showError(res);
   }
   showError(res) {
-
+    console.log('onSearchComplete()', res);
   }
 
   onSelect(i){

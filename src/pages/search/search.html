@@ -56,13 +56,12 @@
   <ion-list>
     <ion-item text-wrap *ngFor=" let post of posts; let i = index;  ">
       <ion-avatar item-left>
-        <img src="{{post.images}}"/>
+        <img src="{{post.image}}"/>
       </ion-avatar>
       <h3>{{ post.post_title }}</h3>
       <div>
         {{ post.post_content }}
       </div>
-      <ion-note item-right>3:43 pm</ion-note>
       <button clear item-right (click)="onSelect(i)"><ion-icon name='arrow-dropdown-circle'></ion-icon>View</button>
 
       <div *ngIf="moreButton[i]">
