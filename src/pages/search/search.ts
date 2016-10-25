@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Xapi } from "../../xmodule/providers/xapi";
+import { Library as lib } from '../../xmodule/functions/library';
 import 'rxjs/add/operator/debounceTime';
 
 
@@ -31,8 +33,8 @@ export class SearchPage {
   male: boolean = false;
   female: boolean = false;
   searching: boolean = false;
-  private moreButton = [];
-  private posts;
+  moreButton = [];
+  posts;
 
   private data: SearchData = {
     name: '',
@@ -42,11 +44,10 @@ export class SearchPage {
   }
 
 
-  constructor( public navCtrl: NavController ) {
+  constructor( public navCtrl: NavController,
+               private x: Xapi
 
-  }
-
-  ionViewLoaded() {
+  ) {
     this.search();
   }
 
@@ -63,10 +64,6 @@ export class SearchPage {
   search() {
     this.showLoader();
     console.log("search()");
-    // console.log("male: " + this.male);
-    // console.log("female: " + this.female);
-    // console.log("address: " + this.address);
-    // console.log("name: " + this.name);
     console.log("Age " + this.searchByAge.lower + " between " + this.searchByAge.upper  );
 
     console.log( this.data );
@@ -141,16 +138,14 @@ export class SearchPage {
 
 
 
-/*
     let q = ['args'];
     q['args'] = [];
     q['args']['meta_query'] = meta;
-    let qs = app.http_build_query( q );
+    let qs = lib.http_build_query( q );
     console.log(meta);
     console.log( qs );
 
     this.x.wp_query( qs , res => this.onSearchComplete(res), err => console.log( err ));
-*/
   }
   onSearchComplete( res ) {
     console.log('onSearchComplete()');

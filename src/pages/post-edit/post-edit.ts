@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { PostEditService } from '../../xmodule/providers/post-edit-service';
+import { Xapi } from "../../xmodule/providers/xapi";
 
 export interface  PostEdit {
   category: string;
@@ -12,6 +13,7 @@ export interface  PostEdit {
   middle_name: string;
   last_name: string;
   mobile: string;
+  birthday: string;
   address: string;
   gender: 'M' | 'F' | '';
   fid: Array<string>;
@@ -35,7 +37,8 @@ export class PostEditPage {
   constructor(public navCtrl: NavController,
               private postEditService: PostEditService,
               private navParams: NavParams,
-              private events: Events
+              private events: Events,
+              private x: Xapi
 
   ) {
     events.subscribe('file-upload-success', x => this.onSuccessFileUpload(x[0]));
@@ -52,6 +55,7 @@ export class PostEditPage {
         this.post.gender = p.meta.gender;
         this.post.mobile = p.meta.mobile;
         this.post.address = p.meta.address;
+        this.post.birthday = p.meta.birthday;
         if ( p.images ) {
           this.urlPhoto = p.images[Object.keys( p.images ).pop()];
         }
@@ -65,6 +69,8 @@ export class PostEditPage {
     this.postEditService.submit( this.post, res => {
       this.loader = false;
       console.log("onClickPost::callback(), ", res );
+      this.x.alert("SUCCESS", "Your post has been posted.");
+      this.navCtrl.pop();
     }, err => {
       this.loader = false;
       console.log("err");

@@ -8,10 +8,11 @@ import { PostEditPage } from '../pages/post-edit/post-edit';
 import { PolicyPage } from '../pages/policy/policy';
 import { SettingPage } from '../pages/setting/setting';
 import { SearchPage } from '../pages/search/search';
-
+import {AgeCalculator} from "../pipes/age-calculator";
 
 import { XModule } from '../xmodule/modules/core';
 import {HelperHeaderComponent} from "../components/header/header";
+
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {HelperHeaderComponent} from "../components/header/header";
     PostEditPage,
     PolicyPage,
     SettingPage,
-    SearchPage
+    SearchPage,
+    AgeCalculator
   ],
   imports: [
     XModule,
