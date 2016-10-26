@@ -11,6 +11,7 @@ import { Language } from '../../providers/language';
 
 export interface PanelMenu {
   title: string;
+  text: string;
   component: any;
   icon?:string;
 }
@@ -24,11 +25,11 @@ export class HomePage {
   titleCaption: string = "House Helpers";
   subtitleCaption: string = "Easy Fast Convinient";
   pages: Array<PanelMenu> = [
-    { title: 'HELPERS',     component: PostListPage, icon : 'chatboxes' },
-    { title: 'SEARCH',   component: SearchPage, icon : 'search' },
-    { title: 'POST',  component: PostEditPage, icon : 'create' },
-    { title: 'POLICY',     component: PolicyPage, icon : 'paper' },
-    { title: 'SETTING',   component: SettingPage, icon : 'options' }
+    { title: 'HELPERS', text: "Helpers",    component: PostListPage, icon : 'chatboxes' },
+    { title: 'SEARCH',  text: "Search",  component: SearchPage, icon : 'search' },
+    { title: 'POST',    text: "Post", component: PostEditPage, icon : 'create' },
+    { title: 'POLICY',  text: "Policy",   component: PolicyPage, icon : 'paper' },
+    { title: 'SETTING', text: "Setting",  component: SettingPage, icon : 'options' }
   ];
   constructor(public navCtrl: NavController,
     private x: Xapi,
@@ -41,9 +42,16 @@ export class HomePage {
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
 
 
-    this.language.setLanguage('ko');
+    this.language.setLanguage('en');
     this.language.load( code => {
-      
+      this.appTitle = this.language.get( 'title' );
+      this.titleCaption = this.language.get( 'titleCaption' );
+      this.subtitleCaption = this.language.get( 'subtitleCaption' );
+      this.pages.filter( e => e.title == 'HELPERS' ).pop().text = this.language.get( 'menuHelpers' );
+      this.pages.filter( e => e.title == 'SEARCH' ).pop().text = this.language.get( 'menuSearch' );
+      this.pages.filter( e => e.title == 'POST' ).pop().text = this.language.get( 'menuPost' );
+      this.pages.filter( e => e.title == 'POLICY' ).pop().text = this.language.get( 'menuPolicy' );
+      this.pages.filter( e => e.title == 'SETTING' ).pop().text = this.language.get( 'menuSettings' );
     });
     
 

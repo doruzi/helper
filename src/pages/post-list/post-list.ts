@@ -3,12 +3,15 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
 import * as xi from "../../xmodule/interfaces/xapi";
 import { PostEditPage } from "../post-edit/post-edit";
+import { Language } from "../../providers/language";
+
 
 @Component({
     selector: 'page-post-list',
     templateUrl: 'post-list.html'
 })
 export class PostListPage {
+    appTitle: string = "Helper List";
     slug: string;
     page: number = 1;
     posts = [];
@@ -17,10 +20,16 @@ export class PostListPage {
         public navCtrl: NavController,
         private navParams: NavParams,
         private alertCtrl: AlertController,
-        private x: Xapi
+        private x: Xapi,
+        private language: Language
     ) {
         console.log( 'PostListPage::constructor()', navParams.data);
         this.slug = this.navParams.get( 'slug' );
+
+
+
+        this.appTitle = language.get('titlePostList');
+        
 
 
         this.loadPosts();

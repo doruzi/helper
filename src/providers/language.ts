@@ -34,6 +34,8 @@ export class Language {
     this.lang = lang;
   }
   get ( code ) {
-    return this.code[ code ][ this.lang ];
+    if ( typeof this.code[ code ] != 'undefined' && typeof this.code[ code ][ this.lang ] != 'undefined' )
+      return this.code[ code ][ this.lang ];
+    else return code;
   }
 }
