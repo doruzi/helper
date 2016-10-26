@@ -3,24 +3,55 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
 import * as xi from "../../xmodule/interfaces/xapi";
 import { PostEditPage } from "../post-edit/post-edit";
+import { Language } from "../../providers/language";
+
 
 @Component({
     selector: 'page-post-list',
     templateUrl: 'post-list.html'
 })
 export class PostListPage {
+    appTitle: string = "Helper List";
     slug: string;
     page: number = 1;
     posts = [];
     moreButton = [];
+    text = {
+      personalInfo: 'Personal Information',
+      name: 'Name',
+      gender: 'Gender',
+      age: 'Age',
+      mobile: 'Mobile #',
+      address: 'Address',
+      more: 'More',
+      less: 'Less',
+      edit: 'Edit',
+      delete: 'Delete',
+    };
     constructor(
         public navCtrl: NavController,
         private navParams: NavParams,
         private alertCtrl: AlertController,
-        private x: Xapi
+        private x: Xapi,
+        private language: Language
     ) {
         console.log( 'PostListPage::constructor()', navParams.data);
         this.slug = this.navParams.get( 'slug' );
+
+
+
+        this.appTitle = language.get('titlePostList');
+        this.text.personalInfo = language.get('personalInformation');
+        this.text.name = language.get('name');
+        this.text.gender = language.get('gender');
+        this.text.age = language.get('age');
+        this.text.mobile = language.get('mobile');
+        this.text.address = language.get('address');
+        this.text.more = language.get('more');
+        this.text.less = language.get('less');
+        this.text.edit = language.get('edit');
+        this.text.delete = language.get('delete');
+        
 
 
         this.loadPosts();

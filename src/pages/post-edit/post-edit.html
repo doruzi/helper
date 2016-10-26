@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Post Edit</ion-title>
+    <ion-title>{{ appTitle }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,73 +24,73 @@
   <ion-list text-wrap>
 
     <ion-item-divider light>
-      Fill in all Information
+      {{text.fillInAllInfo}}
     </ion-item-divider>
 
     <ion-item>
-      <ion-label floating>Password</ion-label>
+      <ion-label floating>{{text.password}}</ion-label>
       <ion-input [(ngModel)]="post.password"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>First Name</ion-label>
+      <ion-label floating>{{text.firstName}}</ion-label>
       <ion-input [(ngModel)]="post.first_name"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Last Name</ion-label>
+      <ion-label floating>{{text.lastName}}</ion-label>
       <ion-input [(ngModel)]="post.last_name"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Middle Name</ion-label>
+      <ion-label floating>{{text.middleName}}</ion-label>
       <ion-input [(ngModel)]="post.middle_name" ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Gender</ion-label>
+      <ion-label floating>{{text.gender}}</ion-label>
       <ion-select [(ngModel)]="post.gender" placeholder="Select Gender" margin-left>
-        <ion-option value="F" >Female</ion-option>
-        <ion-option value="M" >Male</ion-option>
+        <ion-option value="F" >{{text.female}}</ion-option>
+        <ion-option value="M" >{{text.male}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Phone Number</ion-label>
+      <ion-label floating>{{text.mobile}}</ion-label>
       <ion-input [(ngModel)]="post.mobile"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Birthday</ion-label>
+      <ion-label floating>{{text.birthday}}</ion-label>
       <ion-datetime displayFormat="YYYY/DD/MM" pickerFormat="MMMM DD YYYY" [(ngModel)]="post.birthday" margin-left></ion-datetime>
       <ion-icon name="calendar" item-right=""></ion-icon>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Address</ion-label>
+      <ion-label floating>{{text.address}}</ion-label>
       <ion-input text-wrap [(ngModel)]="post.address" ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Title</ion-label>
+      <ion-label floating>{{text.personalTitle}}</ion-label>
       <ion-input [(ngModel)]="post.post_title"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Content</ion-label>
+      <ion-label floating>{{text.personalContent}}</ion-label>
       <ion-textarea [(ngModel)]="post.post_content" ></ion-textarea>
     </ion-item>
 
   </ion-list>
 
 
-  <div *ngIf="loader">Connecting to server...</div>
+  <div *ngIf="loader">{{text.connectingToServer}}</div>
 
 
 
 
   <button ion-button block (click)="onClickPost()">
-    POST
+    {{text.submitPost}}
   </button>
 
 </ion-content>

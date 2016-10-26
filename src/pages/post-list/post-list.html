@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Post List</ion-title>
+    <ion-title>{{ appTitle }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -25,13 +25,13 @@
                 <div *ngIf="moreButton[i]">
                     <ion-item-group text-wrap>
                         <ion-item-divider light>
-                          Personal Information
+                          {{text.personalInfo}}
                         </ion-item-divider>
-                        <ion-item><ion-label>Name : {{ post.meta.first_name }} {{ post.meta.middle_name }} {{ post.meta.last_name }}</ion-label></ion-item>
-                        <ion-item><ion-label>Gender : {{ post.meta.gender }}</ion-label></ion-item>
-                        <ion-item><ion-label>Age : {{ post.meta.birthday | ageCalculator }}</ion-label></ion-item>
-                        <ion-item><ion-label>Mobile # : {{ post.meta.mobile }}</ion-label></ion-item>
-                        <ion-item><ion-label>Address : {{ post.meta.address }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.name}} : {{ post.meta.first_name }} {{ post.meta.middle_name }} {{ post.meta.last_name }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.gender}} : {{ post.meta.gender }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.age}} : {{ post.meta.birthday | ageCalculator }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.mobile}} : {{ post.meta.mobile }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.address}} : {{ post.meta.address }}</ion-label></ion-item>
                     </ion-item-group>
                 </div>
             </ion-card-content>
@@ -39,29 +39,23 @@
                 <ion-col>
                     <button ion-button clear small no-padding (click)="moreButton[i] = !moreButton[i]" *ngIf="!moreButton[i]">
                         <ion-icon name='arrow-dropdown-circle'></ion-icon>
-                        &nbsp; More
+                        {{text.more}}
                     </button>
                     <button ion-button clear small no-padding (click)="moreButton[i] = !moreButton[i]" *ngIf="moreButton[i]">
                         <ion-icon name='arrow-dropup-circle'></ion-icon>
-                        &nbsp; Less
+                        {{text.less}}
                     </button>
                 </ion-col>
-                <!--ion-col>
-                    <button ion-button clear small no-padding>
-                        <ion-icon name='quote'></ion-icon>
-                        Comment
-                    </button>
-                </ion-col-->
                 <ion-col>
                     <button ion-button clear small no-padding (click)="onClickEdit(post.ID)">
                         <ion-icon name='open'></ion-icon>
-                        &nbsp; Edit
+                        {{text.edit}}
                     </button>
                 </ion-col>
                 <ion-col>
                     <button ion-button clear small no-padding (click)="onClickDelete(post.ID , i)">
                         <ion-icon name='trash'></ion-icon>
-                        &nbsp; Delete
+                        {{text.delete}}
                     </button>
                 </ion-col>
             </ion-row>

@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operator/map';
 import { NavController } from 'ionic-angular';
 
 import { PostListPage } from '../post-list/post-list';
@@ -10,9 +7,11 @@ import { PolicyPage } from '../policy/policy';
 import { SettingPage } from '../setting/setting';
 import { SearchPage } from "../search/search";
 import { Xapi } from '../../xmodule/providers/xapi';
+import { Language } from '../../providers/language';
 
 export interface PanelMenu {
   title: string;
+  text: string;
   component: any;
   icon?:string;
 }
@@ -26,16 +25,15 @@ export class HomePage {
   titleCaption: string = "House Helpers";
   subtitleCaption: string = "Easy Fast Convinient";
   pages: Array<PanelMenu> = [
-    { title: 'HELPERS',     component: PostListPage, icon : 'person' },
-    { title: 'SEARCH',   component: SearchPage, icon : 'search' },
-    { title: 'POST',  component: PostEditPage, icon : 'create' },
-    { title: 'POLICY',     component: PolicyPage, icon : 'paper' },
-    { title: 'SETTING',   component: SettingPage, icon : 'options' }
+    { title: 'HELPERS', text: "Helpers",    component: PostListPage, icon : 'chatboxes' },
+    { title: 'SEARCH',  text: "Search",  component: SearchPage, icon : 'search' },
+    { title: 'POST',    text: "Post", component: PostEditPage, icon : 'create' },
+    { title: 'POLICY',  text: "Policy",   component: PolicyPage, icon : 'paper' },
+    { title: 'SETTING', text: "Setting",  component: SettingPage, icon : 'options' }
   ];
-  lang: 'en' | 'ko' = 'en';
   constructor(public navCtrl: NavController,
     private x: Xapi,
-    private http: Http
+    private language: Language
   ) {
 //    x.serverUrl = "http://work.org/wordpress/index.php";
     x.serverUrl = "http://www.philgo.net/index.php";
@@ -44,16 +42,18 @@ export class HomePage {
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
 
 
-    http.get( x.serverUrl + '?xapi=load.json&file=helper' )
-      .map( e => e.json() )
-      .subscribe( x => {
-        console.log( x );
+    this.language.setLanguage('en');
+    this.language.load( code => {
+      this.appTitle = this.language.get( 'title' );
+      this.titleCaption = this.language.get( 'titleCaption' );
+      this.subtitleCaption = this.language.get( 'subtitleCaption' );
+      this.pages.filter( e => e.title == 'HELPERS' ).pop().text = this.language.get( 'menuHelpers' );
+      this.pages.filter( e => e.title == 'SEARCH' ).pop().text = this.language.get( 'menuSearch' );
+      this.pages.filter( e => e.title == 'POST' ).pop().text = this.language.get( 'menuPost' );
+      this.pages.filter( e => e.title == 'POLICY' ).pop().text = this.language.get( 'menuPolicy' );
+      this.pages.filter( e => e.title == 'SETTING' ).pop().text = this.language.get( 'menuSettings' );
+    });
 
-
-        this.appTitle = x.data.title[ this.lang ];
-        this.titleCaption = x.data.titleCaption[ this.lang ];
-        this.subtitleCaption = x.data.subtitleCaption[ this.lang ];
-      });
 
 
   }
