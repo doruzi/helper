@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
 import { Library as lib } from '../../xmodule/functions/library';
+import {PostEditPage} from "../post-edit/post-edit";
 import 'rxjs/add/operator/debounceTime';
+
 
 
 export interface SearchData {
@@ -34,7 +36,7 @@ export class SearchPage {
   female: boolean = false;
   searching: boolean = false;
   moreButton = [];
-  posts;
+  posts = [];
 
   data: SearchData = {
     name: '',
@@ -62,6 +64,7 @@ export class SearchPage {
     this.searching = false;
   }
   search( $event? ) {
+    this.posts = [];
     this.showLoader();
     console.log("search()");
     console.log("Age " + this.searchByAge.lower + " between " + this.searchByAge.upper  );
@@ -136,8 +139,6 @@ export class SearchPage {
 
     //End of Date args
 
-
-
     let q = ['args'];
     q['args'] = [];
     q['args']['meta_query'] = meta;
@@ -145,20 +146,45 @@ export class SearchPage {
     console.log(meta);
     console.log( qs );
 
-    this.x.wp_query( qs , res => this.onSearchComplete(res), err => console.log( err ));
+    this.x.wp_query( qs , res => {
+      this.onSearchComplete(res)
+    },
+      err => console.log( err )
+    );
   }
   onSearchComplete( res ) {
     console.log('onSearchComplete()');
     this.hideLoader();
-    if ( res.success ) this.posts = res.data.posts;
+    if ( res.success ){
+
+      if ( res.data.posts && res.data.posts.length ) {
+        this.displayPosts( res.data.posts );
+      }
+      //this.posts = res.data.posts;
+    }
     else this.showError(res);
   }
   showError(res) {
     console.log('onSearchComplete()', res);
   }
 
+  displayPosts( data ) {
+    console.log( 'success', data );
+    for ( let post of data ) {
+      if ( post.images ) {
+        post.image = post.images[ Object.keys( post.images ).pop() ];
+        delete post.images;
+      }
+      this.posts.push( post );
+    }
+  }
+
   onSelect(i){
     //console.log( this.moreButton[i] + " " + i );
     this.moreButton[i] = this.moreButton[i] == true ? false : true;
+  }
+
+  onClickEdit( post_ID ) {
+    this.navCtrl.push( PostEditPage, { post_ID: post_ID });
   }
 }

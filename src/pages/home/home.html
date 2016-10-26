@@ -12,10 +12,14 @@
       </ion-card>
       <ion-row wrap>
         <ion-col class="page_button" width-33 *ngFor=" let page of pages " (click)=" openPage( page )">
-          <button ion-button>
-            <ion-icon name="{{ page.icon }}"></ion-icon>
-            {{ page.title }}
-          </button>
+          <ion-card no-margin class="list-menu">
+            <ion-card-header>
+              <ion-icon name="{{ page.icon }}"></ion-icon>
+            </ion-card-header>
+            <ion-card-content>
+              {{ page.title }}
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-list>

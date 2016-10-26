@@ -25,11 +25,7 @@
                 <div *ngIf="moreButton[i]">
                     <ion-item-group text-wrap>
                         <ion-item-divider light>
-                            <h2>Personal Information</h2>
-                            <!--button ion-button clear small no-padding item-right>
-                                <ion-icon name='share-alt'></ion-icon>
-                                Share
-                            </button-->
+                          Personal Information
                         </ion-item-divider>
                         <ion-item><ion-label>Name : {{ post.meta.first_name }} {{ post.meta.middle_name }} {{ post.meta.last_name }}</ion-label></ion-item>
                         <ion-item><ion-label>Gender : {{ post.meta.gender }}</ion-label></ion-item>
@@ -75,5 +71,5 @@
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  
+
 </ion-content>

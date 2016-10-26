@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { NavController, Events } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
 import { PageController } from "../../xmodule/providers/page-controller";
+import {PostEditPage} from '../../pages/post-edit/post-edit';
+import {SearchPage} from '../../pages/search/search';
 
 @Component({
   selector: 'helper-header',
@@ -89,11 +91,14 @@ export class HelperHeaderComponent {
 
   onClickPost( ) {
     console.log('HeaderComponent::onClickPost()');
-    PageController.push( 'PostEditPage', this );
+    //PageController.push( 'PostEditPage', this );
+    this.navCtrl.push( PostEditPage );
   }
 
   onClickSearch() {
-
+    console.log('HeaderComponent::onClickSearch()');
+    //PageController.push( 'SearchPage', this );
+    this.navCtrl.push( SearchPage );
   }
 
 }
