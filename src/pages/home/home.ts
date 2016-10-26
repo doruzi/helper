@@ -26,7 +26,7 @@ export class HomePage {
   titleCaption: string = "House Helpers";
   subtitleCaption: string = "Easy Fast Convinient";
   pages: Array<PanelMenu> = [
-    { title: 'HELPERS',     component: PostListPage, icon : 'chatboxes' },
+    { title: 'HELPERS',     component: PostListPage, icon : 'person' },
     { title: 'SEARCH',   component: SearchPage, icon : 'search' },
     { title: 'POST',  component: PostEditPage, icon : 'create' },
     { title: 'POLICY',     component: PolicyPage, icon : 'paper' },
@@ -54,7 +54,7 @@ export class HomePage {
         this.titleCaption = x.data.titleCaption[ this.lang ];
         this.subtitleCaption = x.data.subtitleCaption[ this.lang ];
       });
-    
+
 
   }
 
