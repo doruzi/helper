@@ -74,6 +74,7 @@ export class PostListPage {
 
 
     onClickEdit( post_ID ) {
+        this.navCtrl.pop();
         this.navCtrl.push( PostEditPage, { post_ID: post_ID });
     }
 
@@ -117,6 +118,11 @@ export class PostListPage {
             ]
         });
         prompt.present();
+    }
+
+
+    ionViewWillEnter() {
+        console.log('PostList::ionViewWillEnter')
     }
 
 

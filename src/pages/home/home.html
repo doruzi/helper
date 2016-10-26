@@ -7,8 +7,8 @@
     <ion-list>
       <ion-card class="card-background-page">
         <img src="assets/img/tmp-3.png" />
-        <div class="card-title">Housemaid on the Job</div>
-        <div class="card-subtitle">Fast - Easy - Convenient</div>
+        <div class="card-title">{{ titleCaption }}</div>
+        <div class="card-subtitle">{{ subtitleCaption }}</div>
       </ion-card>
       <ion-row wrap>
         <ion-col class="page_button" width-33 *ngFor=" let page of pages " (click)=" openPage( page )">
