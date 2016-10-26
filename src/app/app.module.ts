@@ -13,6 +13,7 @@ import { PostEditDefaultPage } from "../xmodule/pages/post/edit/default/post-edi
 
 import { XModule } from '../xmodule/modules/core';
 import {HelperHeaderComponent} from "../components/header/header";
+import { Language } from '../providers/language';
 
 
 @NgModule({
@@ -45,6 +46,6 @@ import {HelperHeaderComponent} from "../components/header/header";
     SettingPage,
     SearchPage
   ],
-  providers: [ ]
+  providers: [ Language ]
 })
 export class AppModule {}

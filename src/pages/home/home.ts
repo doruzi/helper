@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operator/map';
 import { NavController } from 'ionic-angular';
 
 import { PostListPage } from '../post-list/post-list';
@@ -10,6 +7,7 @@ import { PolicyPage } from '../policy/policy';
 import { SettingPage } from '../setting/setting';
 import { SearchPage } from "../search/search";
 import { Xapi } from '../../xmodule/providers/xapi';
+import { Language } from '../../providers/language';
 
 export interface PanelMenu {
   title: string;
@@ -32,10 +30,9 @@ export class HomePage {
     { title: 'POLICY',     component: PolicyPage, icon : 'paper' },
     { title: 'SETTING',   component: SettingPage, icon : 'options' }
   ];
-  lang: 'en' | 'ko' = 'en';
   constructor(public navCtrl: NavController,
     private x: Xapi,
-    private http: Http
+    private language: Language
   ) {
 //    x.serverUrl = "http://work.org/wordpress/index.php";
     x.serverUrl = "http://www.philgo.net/index.php";
@@ -44,16 +41,10 @@ export class HomePage {
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
 
 
-    http.get( x.serverUrl + '?xapi=load.json&file=helper' )
-      .map( e => e.json() )
-      .subscribe( x => {
-        console.log( x );
-
-
-        this.appTitle = x.data.title[ this.lang ];
-        this.titleCaption = x.data.titleCaption[ this.lang ];
-        this.subtitleCaption = x.data.subtitleCaption[ this.lang ];
-      });
+    this.language.setLanguage('ko');
+    this.language.load( code => {
+      
+    });
     
 
   }
