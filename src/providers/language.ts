@@ -12,12 +12,13 @@ import { Xapi } from '../xmodule/providers/xapi';
 @Injectable()
 export class Language {
 
-  lang: 'en' | 'ko' = 'en';
+  lang: 'en' | 'ko' = 'ko';
   code;
   constructor(public http: Http,
     private x: Xapi
   ) {
     console.log('Hello Language Provider');
+
   }
 
   load( callback ) {
