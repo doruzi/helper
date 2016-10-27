@@ -13,28 +13,6 @@
 $text-color:        #000;
 $background-color:  #fff;
 
-@mixin linear-gradient-header() {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e2e2e2+0,dbdbdb+50,d1d1d1+51,fefefe+100;Grey+Gloss+%231 */
-  background: rgb(226,226,226); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
-}
-
-@mixin linear-gradient2() {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,eeeeee+100;Grey+Flat */
-  background: rgb(238,238,238); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
-}
-
-ion-header .toolbar-background {
-  @include linear-gradient-header();
-}
-
 
 // Named Color Variables
 // --------------------------------------------------
@@ -54,11 +32,11 @@ $colors: (
 );
 
 $cleanAndCrips: (
-        primary :   #99D3DF,
-        secondary : #88BBD6,
-        dark :      #CDCDCD,
-        light :     #E9E9E9,
-        danger :    #f53d3d
+  primary :   #99D3DF,
+  secondary : #88BBD6,
+  dark :      #CDCDCD,
+  light :     #E9E9E9,
+  danger :    #f53d3d
 );
 
 
