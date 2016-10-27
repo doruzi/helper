@@ -52,8 +52,10 @@ export class SettingPage {
    * @attention README#Coding Guide#Settings
    */
   onClickLanguage( ln: string ) {
-
+    //this.language.setLanguage(ln);
     //Core.set( Core.code.language, ln, () => location.reload() );
 
   }
+
+
 }
