@@ -12,8 +12,8 @@ import { Xapi } from '../xmodule/providers/xapi';
 @Injectable()
 export class Language {
 
-  lang: 'en' | 'ko' = 'ko';
-  code;
+  static lang: 'en' | 'ko' = 'ko';
+  static code;
   constructor(public http: Http,
     private x: Xapi
   ) {
@@ -23,20 +23,23 @@ export class Language {
 
   load( callback ) {
     
+    if ( Language.code ) callback ( Language.code );
     this.http.get( this.x.serverUrl + '?xapi=load.json&file=helper' )
       .map( e => e.json() )
       .subscribe( x => {
         console.log( x );
-        this.code = x.data;
-        callback( this.code );
+        if ( x.success ) {
+          Language.code = x.data;
+          callback( Language.code );
+        }
       });
   }
   setLanguage( lang ) {
-    this.lang = lang;
+    Language.lang = lang;
   }
   get ( code ) {
-    if ( typeof this.code[ code ] != 'undefined' && typeof this.code[ code ][ this.lang ] != 'undefined' )
-      return this.code[ code ][ this.lang ];
+    if ( typeof Language.code[ code ] != 'undefined' && typeof Language.code[ code ][ Language.lang ] != 'undefined' )
+      return Language.code[ code ][ Language.lang ];
     else return code;
   }
 }
