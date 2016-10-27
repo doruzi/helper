@@ -9,6 +9,8 @@ import { SearchPage } from "../search/search";
 import { Xapi } from '../../xmodule/providers/xapi';
 import { Language } from '../../providers/language';
 
+import { Network } from 'ionic-native';
+
 export interface PanelMenu {
   title: string;
   text: string;
@@ -31,9 +33,10 @@ export class HomePage {
     { title: 'POLICY',  text: "Policy",   component: PolicyPage, icon : 'paper' },
     { title: 'SETTING', text: "Setting",  component: SettingPage, icon : 'options' }
   ];
+
   constructor(public navCtrl: NavController,
-    private x: Xapi,
-    private language: Language
+              private x: Xapi,
+              private language: Language,
   ) {
 //    x.serverUrl = "http://work.org/wordpress/index.php";
     x.serverUrl = "http://www.philgo.net/index.php";
@@ -43,20 +46,56 @@ export class HomePage {
 
 
     this.language.setLanguage('en');
-    this.language.load( code => {
-      this.appTitle = this.language.get( 'title' );
-      this.titleCaption = this.language.get( 'titleCaption' );
-      this.subtitleCaption = this.language.get( 'subtitleCaption' );
-      this.pages.filter( e => e.title == 'HELPERS' ).pop().text = this.language.get( 'menuHelpers' );
-      this.pages.filter( e => e.title == 'SEARCH' ).pop().text = this.language.get( 'menuSearch' );
-      this.pages.filter( e => e.title == 'POST' ).pop().text = this.language.get( 'menuPost' );
-      this.pages.filter( e => e.title == 'POLICY' ).pop().text = this.language.get( 'menuPolicy' );
-      this.pages.filter( e => e.title == 'SETTING' ).pop().text = this.language.get( 'menuSettings' );
-    });
-
+    this.checkConnectivity();
 
 
   }
+
+
+  checkConnectivity(){
+    let connectSubscription = Network.onConnect().subscribe(() => {
+      this.language.load( code => {
+        this.appTitle = this.language.get( 'title' );
+        this.titleCaption = this.language.get( 'titleCaption' );
+        this.subtitleCaption = this.language.get( 'subtitleCaption' );
+        this.pages.filter( e => e.title == 'HELPERS' ).pop().text = this.language.get( 'menuHelpers' );
+        this.pages.filter( e => e.title == 'SEARCH' ).pop().text = this.language.get( 'menuSearch' );
+        this.pages.filter( e => e.title == 'POST' ).pop().text = this.language.get( 'menuPost' );
+        this.pages.filter( e => e.title == 'POLICY' ).pop().text = this.language.get( 'menuPolicy' );
+        this.pages.filter( e => e.title == 'SETTING' ).pop().text = this.language.get( 'menuSettings' );
+      });
+      console.log('Connection Online');
+    });
+    let disconnectSubscription = Network.onDisconnect().subscribe(() => {
+      alert('Connection Offline'  );
+      //disconnectSubscription.unsubscribe();
+    });
+  }
+
+
+
+
+  /*checkConnectivity(){
+    let onOnline = () => {
+      this.language.load( code => {
+        this.appTitle = this.language.get( 'title' );
+        this.titleCaption = this.language.get( 'titleCaption' );
+        this.subtitleCaption = this.language.get( 'subtitleCaption' );
+        this.pages.filter( e => e.title == 'HELPERS' ).pop().text = this.language.get( 'menuHelpers' );
+        this.pages.filter( e => e.title == 'SEARCH' ).pop().text = this.language.get( 'menuSearch' );
+        this.pages.filter( e => e.title == 'POST' ).pop().text = this.language.get( 'menuPost' );
+        this.pages.filter( e => e.title == 'POLICY' ).pop().text = this.language.get( 'menuPolicy' );
+        this.pages.filter( e => e.title == 'SETTING' ).pop().text = this.language.get( 'menuSettings' );
+      });
+
+    };
+    let onOffline = () => {
+      alert('Connection Offline'  );
+    };
+    document.addEventListener('online', onOnline, false);
+    document.addEventListener('offline', onOffline, false);
+  }*/
+
   openPage( page ) {
     this.navCtrl.push( page.component );
   }

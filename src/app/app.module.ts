@@ -8,11 +8,11 @@ import { PostEditPage } from '../pages/post-edit/post-edit';
 import { PolicyPage } from '../pages/policy/policy';
 import { SettingPage } from '../pages/setting/setting';
 import { SearchPage } from '../pages/search/search';
-import {AgeCalculator} from "../pipes/age-calculator";
+import { AgeCalculator } from "../pipes/age-calculator";
 import { PostEditDefaultPage } from "../xmodule/pages/post/edit/default/post-edit-default";
 
 import { XModule } from '../xmodule/modules/core';
-import {HelperHeaderComponent} from "../components/header/header";
+import { HelperHeaderComponent } from "../components/header/header";
 import { Language } from '../providers/language';
 
 
@@ -46,6 +46,7 @@ import { Language } from '../providers/language';
     SettingPage,
     SearchPage
   ],
-  providers: [ Language ]
+  providers: [ Language,
+  ]
 })
 export class AppModule {}
