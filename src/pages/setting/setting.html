@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Settings</ion-title>
+    <ion-title>{{ appTitle }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,23 +8,23 @@
 
 <ion-list radio-group>
   <ion-list-header>
-    {{ 'Select your language' }}
+    {{ text.selectYourLanguage }}
   </ion-list-header>
 
 
   <ion-item>
-    <ion-label>{{ 'English' }}</ion-label>
+    <ion-label>{{ text.english }}</ion-label>
     <ion-radio value="en"></ion-radio>
   </ion-item>
 
 
   <ion-item>
-    <ion-label>{{ 'Korean' }}</ion-label>
+    <ion-label>{{ text.korean }}</ion-label>
     <ion-radio  value="ko"></ion-radio>
   </ion-item>
 
   <ion-item>
-    <ion-label>{{ 'Chinese' }}</ion-label>
+    <ion-label>{{ text.chinese}}</ion-label>
     <ion-radio value="ch"></ion-radio>
   </ion-item>
 

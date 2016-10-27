@@ -42,7 +42,7 @@ export class HomePage {
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
 
 
-    this.language.setLanguage('en');
+    this.language.setLanguage('ko');
     this.language.load( code => {
       this.appTitle = this.language.get( 'title' );
       this.titleCaption = this.language.get( 'titleCaption' );

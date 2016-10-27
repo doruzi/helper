@@ -17,7 +17,7 @@ export class PostListPage {
     posts = [];
     moreButton = [];
     text = {
-      personalInfo: 'Personal Information',
+        personalInformation: 'Personal Information',
       name: 'Name',
       gender: 'Gender',
       age: 'Age',
@@ -41,7 +41,7 @@ export class PostListPage {
 
 
         this.appTitle = language.get('titlePostList');
-        this.text.personalInfo = language.get('personalInformation');
+        this.text.personalInformation = language.get('personalInformation');
         this.text.name = language.get('name');
         this.text.gender = language.get('gender');
         this.text.age = language.get('age');

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Xapi } from "../../xmodule/providers/xapi";
 import { Library as lib } from '../../xmodule/functions/library';
-import {PostEditPage} from "../post-edit/post-edit";
+import { PostEditPage } from "../post-edit/post-edit";
+import { Language } from "../../providers/language";
 import 'rxjs/add/operator/debounceTime';
 
 
@@ -45,11 +46,57 @@ export class SearchPage {
     female: false
   }
 
-
+  appTitle: string = "Search Helper";
+  text = {
+    searchByGender: 'Search by Gender',
+    searchByAge: 'Search by Age',
+    searchByAddress: 'Search by Address',
+    searchByName: 'Search by Name',
+    searching: 'Searching',
+    male: 'Male',
+    female: 'Female',
+    between: 'Between',
+    and: 'And',
+    like: 'like',
+    personalInformation: 'Personal Information',
+    name: 'Name',
+    gender: 'Gender',
+    age: 'Age',
+    mobile: 'Mobile #',
+    address: 'Address',
+    more: 'More',
+    less: 'Less',
+    edit: 'Edit',
+  }
   constructor( public navCtrl: NavController,
-               private x: Xapi
+               private x: Xapi,
+               private language: Language,
 
   ) {
+    this.appTitle = language.get('titleSearch');
+    this.text.searchByGender = language.get('searchByGender');
+    this.text.searchByAge = language.get('searchByAge');
+    this.text.searchByAddress = language.get('searchByAddress');
+    this.text.searchByName = language.get('searchByName');
+    this.text.searching = language.get('searching');
+    this.text.male = language.get('male');
+    this.text.female = language.get('female');
+    this.text.between = language.get('between');
+    this.text.and = language.get('and');
+    this.text.like = language.get('like');
+    this.text.personalInformation = language.get('personalInformation');
+    this.text.name = language.get('name');
+    this.text.gender = language.get('gender');
+    this.text.age = language.get('age');
+    this.text.mobile = language.get('mobile');
+    this.text.address = language.get('address');
+    this.text.more = language.get('more');
+    this.text.less = language.get('less');
+    this.text.edit = language.get('edit');
+
+
+
+
     this.search( );
   }
 
