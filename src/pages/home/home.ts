@@ -24,7 +24,7 @@ export interface PanelMenu {
 export class HomePage {
   appTitle: string = "Helper App";
   titleCaption: string = "House Helpers";
-  subtitleCaption: string = "Easy Fast Convinient";
+  subtitleCaption: string = "Easy Fast Convenient";
   pages: Array<PanelMenu> = [
     { title: 'HELPERS', text: "Helpers",    component: PostListPage, icon : 'people' },
     { title: 'SEARCH',  text: "Search",  component: SearchPage, icon : 'search' },

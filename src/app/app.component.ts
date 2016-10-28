@@ -12,7 +12,7 @@ import { Language } from '../providers/language';
 })
 export class MyApp {
   rootPage = HomePage;
-
+  lastStatus = "";
   constructor(platform: Platform, private language: Language) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -28,11 +28,17 @@ export class MyApp {
   }
   checkConnectivity(){
     Network.onConnect().subscribe(() => {
-      this.language.load( code => {});
-      console.log('Connection Online');
+      if(this.lastStatus != 'connected' && this.lastStatus != '') {
+        this.lastStatus = 'connected';
+        this.language.load(code => {});
+        console.log('Connection Online');
+      }
     });
     Network.onDisconnect().subscribe(() => {
-      alert('Connection Offline'  );
+      if(this.lastStatus != 'disconnected') {
+        this.lastStatus = 'disconnected';
+        alert('Connection Offline');
+      }
     });
   }
 
