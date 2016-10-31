@@ -44,7 +44,7 @@ export class Language {
       return Language.code[ code ][ Language.lang ];
     else return code;
   }
-  
+
   checkCode(){
     console.log("checkCode " + Language.code);
     if ( typeof Language.code != 'undefined' && Language.code != 'null' && Language.code != '' ){
