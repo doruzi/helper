@@ -47,11 +47,7 @@ export class HomePage {
 
     this.language.setLanguage('en');
 
-    platform.ready().then( x => {
-      //
-    });
-
-
+    if( language.checkCode ){
       this.language.load( code => {
         this.appTitle = this.language.get( 'title' );
         this.titleCaption = this.language.get( 'titleCaption' );
@@ -62,8 +58,7 @@ export class HomePage {
         this.pages.filter( e => e.title == 'POLICY' ).pop().text = this.language.get( 'menuPolicy' );
         this.pages.filter( e => e.title == 'SETTING' ).pop().text = this.language.get( 'menuSettings' );
       });
-      console.log('Connection Online');
-
+    }
   }
 
 

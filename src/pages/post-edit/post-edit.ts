@@ -75,27 +75,27 @@ export class PostEditPage {
                 platform: Platform
 
     ) {
-
-        this.appTitle = language.get('titlePostEdit');
-        this.text.fillInAllInfo = language.get('fillInAllInfo');
-        this.text.gender = language.get('gender');
-        this.text.selectGender = language.get('selectGender');
-        this.text.mobile = language.get('mobile');
-        this.text.address = language.get('address');
-        this.text.more = language.get('more');
-        this.text.less = language.get('less');
-        this.text.edit = language.get('edit');
-        this.text.delete = language.get('delete');
-        this.text.password = language.get('password');
-        this.text.firstName = language.get('firstName');
-        this.text.lastName = language.get('lastName');
-        this.text.middleName = language.get('middleName');
-        this.text.birthday = language.get('birthday');
-        this.text.connectingToServer = language.get('connectingToServer');
-        this.text.submitPost = language.get('submitPost');
-        this.text.personalTitle = language.get('personalTitle');
-        this.text.personalContent = language.get('personalContent');
-
+        if( language.checkCode() ) {
+            this.appTitle = language.get('titlePostEdit');
+            this.text.fillInAllInfo = language.get('fillInAllInfo');
+            this.text.gender = language.get('gender');
+            this.text.selectGender = language.get('selectGender');
+            this.text.mobile = language.get('mobile');
+            this.text.address = language.get('address');
+            this.text.more = language.get('more');
+            this.text.less = language.get('less');
+            this.text.edit = language.get('edit');
+            this.text.delete = language.get('delete');
+            this.text.password = language.get('password');
+            this.text.firstName = language.get('firstName');
+            this.text.lastName = language.get('lastName');
+            this.text.middleName = language.get('middleName');
+            this.text.birthday = language.get('birthday');
+            this.text.connectingToServer = language.get('connectingToServer');
+            this.text.submitPost = language.get('submitPost');
+            this.text.personalTitle = language.get('personalTitle');
+            this.text.personalContent = language.get('personalContent');
+        }
         if ( platform.is('cordova') ) this.cordova = true;
         else this.browser = true;
 

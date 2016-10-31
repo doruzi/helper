@@ -18,11 +18,13 @@ export class SettingPage {
   constructor(private navCtrl: NavController,
               private language: Language,
   ) {
-    this.appTitle = language.get('titleSettings');
-    this.text.selectYourLanguage = language.get('selectYourLanguage');
-    this.text.english = language.get('english');
-    this.text.korean = language.get('korean');
-    this.text.chinese = language.get('chinese');
+    if (language.checkCode()) {
+      this.appTitle = language.get('titleSettings');
+      this.text.selectYourLanguage = language.get('selectYourLanguage');
+      this.text.english = language.get('english');
+      this.text.korean = language.get('korean');
+      this.text.chinese = language.get('chinese');
+    }
   }
   initialize()/* : boolean*/ {
     /* app.title('setting.title', this);

@@ -23,27 +23,27 @@ export class PolicyPage {
     policyDescription5: 'policyDescription5',
     policyDescription6: 'policyDescription6',
     policyDescription7: 'policyDescription7',
-  }
+  };
 
   constructor(private navCtrl: NavController,
-              private language: Language,
-  ) {
+              private language: Language,) {
+    if (language.checkCode()) {
+      this.appTitle = language.get('titlePolicy');
+      this.text.policyTitle1 = language.get('policyTitle1');
+      this.text.policyTitle2 = language.get('policyTitle2');
+      this.text.policyTitle3 = language.get('policyTitle3');
+      this.text.policyTitle4 = language.get('policyTitle4');
+      this.text.policyTitle5 = language.get('policyTitle5');
+      this.text.policyTitle6 = language.get('policyTitle6');
+      this.text.policyTitle7 = language.get('policyTitle7');
+      this.text.policyDescription1 = language.get('policyDescription1');
+      this.text.policyDescription2 = language.get('policyDescription2');
+      this.text.policyDescription3 = language.get('policyDescription3');
+      this.text.policyDescription4 = language.get('policyDescription4');
+      this.text.policyDescription5 = language.get('policyDescription5');
+      this.text.policyDescription6 = language.get('policyDescription6');
+      this.text.policyDescription7 = language.get('policyDescription7');
+    }
 
-    this.appTitle = language.get('titlePolicy');
-    this.text.policyTitle1 = language.get('policyTitle1');
-    this.text.policyTitle2 = language.get('policyTitle2');
-    this.text.policyTitle3 = language.get('policyTitle3');
-    this.text.policyTitle4 = language.get('policyTitle4');
-    this.text.policyTitle5 = language.get('policyTitle5');
-    this.text.policyTitle6 = language.get('policyTitle6');
-    this.text.policyTitle7 = language.get('policyTitle7');
-    this.text.policyDescription1 = language.get('policyDescription1');
-    this.text.policyDescription2 = language.get('policyDescription2');
-    this.text.policyDescription3 = language.get('policyDescription3');
-    this.text.policyDescription4 = language.get('policyDescription4');
-    this.text.policyDescription5 = language.get('policyDescription5');
-    this.text.policyDescription6 = language.get('policyDescription6');
-    this.text.policyDescription7 = language.get('policyDescription7');
   }
-
 }

@@ -39,19 +39,19 @@ export class PostListPage {
         this.slug = this.navParams.get( 'slug' );
 
 
-
-        this.appTitle = language.get('titlePostList');
-        this.text.personalInformation = language.get('personalInformation');
-        this.text.name = language.get('name');
-        this.text.gender = language.get('gender');
-        this.text.age = language.get('age');
-        this.text.mobile = language.get('mobile');
-        this.text.address = language.get('address');
-        this.text.more = language.get('more');
-        this.text.less = language.get('less');
-        this.text.edit = language.get('edit');
-        this.text.delete = language.get('delete');
-        
+        if( language.checkCode() ) {
+            this.appTitle = language.get('titlePostList');
+            this.text.personalInformation = language.get('personalInformation');
+            this.text.name = language.get('name');
+            this.text.gender = language.get('gender');
+            this.text.age = language.get('age');
+            this.text.mobile = language.get('mobile');
+            this.text.address = language.get('address');
+            this.text.more = language.get('more');
+            this.text.less = language.get('less');
+            this.text.edit = language.get('edit');
+            this.text.delete = language.get('delete');
+        }
 
 
         this.loadPosts();
