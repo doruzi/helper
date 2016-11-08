@@ -6,6 +6,7 @@ import { Camera, Transfer } from 'ionic-native';
 
 import { Post } from '../../fireframe2/post';
 
+
 export interface  PostEdit {
     key : string;
     category: string;
@@ -105,10 +106,14 @@ export class PostEditPage {
         if ( this.post_ID ) {
 
         }
+/*
+        let date = new Date;
+        let stamp;
+        for(let i = 0; i < 100; i++) {
 
-
-        /*for(let i = 0; i < 100; i++) {
+          stamp = date.getTime();
           this.post
+            .set('uid', stamp )
             .set('address', 'address ' + i)
             .set('birthday', (1988 - i)  + '-11-05')
             .set('category', 'housemaid')
@@ -129,7 +134,9 @@ export class PostEditPage {
             });
 
 
-        }*/
+        }
+
+        */
     }
 
 

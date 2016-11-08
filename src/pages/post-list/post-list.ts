@@ -84,27 +84,17 @@ export class PostListPage {
 
         /*###################### testing on getting 10 post
 
-
-
-
-
+         /**
          * Returns requested data in the path
-        
+
       fetch( successCallback, failureCallback ) {
         let ref = this.object.$ref;
-        ref.orderByChild("key").startAt(5).limitToLast(10).on("child_added", (snapshot) => {
-          successCallback( snapshot.val() );
-        }, failureCallback );
-      }
-
-         gets( successCallback, failureCallback ) {
-         let ref = this.object.$ref;
-         //let query = ref.orderByChild("key").limitToFirst(10);
-          let query = ref.orderByChild("key").startAt().limit();
-          query.on("child_added", (snapshot) => {
+        ref.orderByKey()
+          .limitToLast(10)
+          .on("child_added", (snapshot) => {
             successCallback( snapshot.val() );
           }, failureCallback );
-        }
+      }
 
         #######################*/
         this.posts.push( data );
