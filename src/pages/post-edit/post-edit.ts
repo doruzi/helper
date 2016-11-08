@@ -105,6 +105,31 @@ export class PostEditPage {
         if ( this.post_ID ) {
 
         }
+
+
+        /*for(let i = 0; i < 100; i++) {
+          this.post
+            .set('address', 'address ' + i)
+            .set('birthday', (1988 - i)  + '-11-05')
+            .set('category', 'housemaid')
+            .set('first_name', 'first_name ' + i)
+            .set('gender', 'M')
+            .set('last_name', 'last_name ' + i)
+            .set('middle_name', 'middle_name ' + i)
+            .set('mobile', 'mobile ' + i)
+            .set('password', '1111')
+            .set('post_content', 'post_content ' + i)
+            .set('post_title', 'post_title ' + i)
+            .create( () => {
+              this.loader = false;
+              console.log( 'onclickPost::Success' + i );
+            }, e => {
+              this.loader = false;
+              console.log( 'onclickPost::Failed' + e );
+            });
+
+
+        }*/
     }
 
 

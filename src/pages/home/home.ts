@@ -7,7 +7,8 @@ import { PolicyPage } from '../policy/policy';
 import { SettingPage } from '../setting/setting';
 import { SearchPage } from "../search/search";
 import { Language } from '../../providers/language';
-
+import { Post } from '../../fireframe2/post';
+import { Category } from '../../fireframe2/category';
 
 export interface PanelMenu {
   title: string;
@@ -34,7 +35,22 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               private language: Language,
+              private post: Post,
+              private category: Category
   ) {
+
+    this.category.path = 'category-helper'
+    this.post.path = 'post-helper';
+
+    this.category
+      .set('key',         'housemaid')
+      .set('name',        'Housemaid')
+      .set('description', 'This is the category for house helper..')
+      .create( () => {},
+        e =>
+          console.log(e)
+      );
+
 //    x.serverUrl = "http://work.org/wordpress/index.php";
 //    x.serverUrl = "http://www.philgo.net/index.php";
 //    setTimeout( () => navCtrl.push( PostEditPage ), 600 );

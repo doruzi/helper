@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { PostEditPage } from "../post-edit/post-edit";
 import { Language } from "../../providers/language";
-
+import { Post } from '../../fireframe2/post';
 
 @Component({
     selector: 'page-post-list',
@@ -30,7 +30,8 @@ export class PostListPage {
         public navCtrl: NavController,
         private navParams: NavParams,
         private alertCtrl: AlertController,
-        private language: Language
+        private language: Language,
+        private post: Post,
     ) {
         console.log( 'PostListPage::constructor()', navParams.data);
         this.slug = this.navParams.get( 'slug' );
@@ -57,17 +58,58 @@ export class PostListPage {
 
     loadPosts( finished? ) {
 
+
+
+      this.post
+        .set('order', 'key')
+        .set('startAt', '0')
+        .set('limit', '10')
+        .fetch( snapshot =>{
+        if(snapshot) this.displayPosts( snapshot );
+        if ( finished ) finished();
+      }, e=>{
+        if ( finished ) finished();
+        console.info(e);
+      })
     }
 
     displayPosts( data ) {
+
         console.log( 'success', data );
-        for ( let post of data ) {
-            if ( post.images ) {
-                post.image = post.images[ Object.keys( post.images ).pop() ];
-                delete post.images;
-            }
-            this.posts.push( post );
+        /*for ( let post in data ) {
+          console.log(data[post]);
+            this.posts.push( data[post] );
+        }*/
+
+
+        /*###################### testing on getting 10 post
+
+
+
+
+
+         * Returns requested data in the path
+        
+      fetch( successCallback, failureCallback ) {
+        let ref = this.object.$ref;
+        ref.orderByChild("key").startAt(5).limitToLast(10).on("child_added", (snapshot) => {
+          successCallback( snapshot.val() );
+        }, failureCallback );
+      }
+
+         gets( successCallback, failureCallback ) {
+         let ref = this.object.$ref;
+         //let query = ref.orderByChild("key").limitToFirst(10);
+          let query = ref.orderByChild("key").startAt().limit();
+          query.on("child_added", (snapshot) => {
+            successCallback( snapshot.val() );
+          }, failureCallback );
         }
+
+        #######################*/
+        this.posts.push( data );
+        console.log(this.posts);
+
     }
 
 
