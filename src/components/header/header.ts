@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NavController, Events } from 'ionic-angular';
-import { Xapi } from "../../xmodule/providers/xapi";
-import { PageController } from "../../xmodule/providers/page-controller";
-import {PostEditPage} from '../../pages/post-edit/post-edit';
-import {SearchPage} from '../../pages/search/search';
+import { PostEditPage } from '../../pages/post-edit/post-edit';
+import { SearchPage } from '../../pages/search/search';
 
 @Component({
   selector: 'helper-header',
@@ -35,58 +33,16 @@ export class HelperHeaderComponent {
   @Input() hideCreateButton: boolean;
 
   static initialized: boolean;
-  public loggedIn: boolean = false;
   public subTitle: string = '';
   constructor(
       private navCtrl: NavController,
       private events: Events,
-      private x: Xapi
   ) {
     this.initialize();
     // console.log('PageController:', PageController.page);
   }
   initialize() {
-    this.x.getLoginData( x => this.loggedIn = true );
-    this.events.subscribe( 'login', ( u ) => {
-      console.log('HeaderComponent::constructor::event login');
-      this.login(u);
-    } );
-    this.events.subscribe( 'register', (u) => {
-      console.log('HeaderComponent::regiter');
-      this.login(u);
-    });
-    this.events.subscribe( 'logout', () => {
-      console.log('HeaderComponent::constructor::event logout');
-      this.logout();
-    } );
-    this.events.subscribe( 'resign', () => {
-      console.log('HeaderComponent::constructor::event resign');
-      this.logout();
-    });
-  }
-  login(u) {
-    this.loggedIn = true;
-  }
-  logout() {
-    this.loggedIn = false;
-  }
 
-  onClickLogin() {
-    console.log('app-header::onClickLogin() : ');
-    //this.navCtrl.push( Login );
-    PageController.push( 'login', this );
-  }
-
-  onClickRegister() {
-    console.log('app-header::onClickRegister() : ');
-    //this.navCtrl.push( Login );
-    PageController.push( 'register', this );
-  }
-
-  onClickLogout() {
-    this.x.logout();
-    this.x.alert("로그아웃", "로그아웃하였습니다.");
-    this.loggedIn = false;
   }
 
   onClickPost( ) {

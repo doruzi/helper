@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Xapi } from '../xmodule/providers/xapi';
+
 
 /*
  Generated class for the Language provider.
@@ -15,7 +15,7 @@ export class Language {
   static lang: 'en' | 'ko' = 'ko';
   static code;
   constructor(public http: Http,
-              private x: Xapi
+
   ) {
     console.log('Hello Language Provider');
 
@@ -23,7 +23,7 @@ export class Language {
 
   load( callback ) {
 
-    if ( Language.code ) callback ( Language.code );
+   /* if ( Language.code ) callback ( Language.code );
     this.http.get( this.x.serverUrl + '?xapi=load.json&file=helper' )
         .map( e => e.json() )
         .subscribe( x => {
@@ -34,7 +34,7 @@ export class Language {
           }
         }, e => {
           console.log( 'load( callback ) : ' + e );
-        });
+        });*/
   }
   setLanguage( lang ) {
     Language.lang = lang;

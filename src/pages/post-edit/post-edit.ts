@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Platform, NavController, NavParams, Events, AlertController } from 'ionic-angular';
-import { PostEditService } from '../../xmodule/providers/post-edit-service';
-import { Xapi } from "../../xmodule/providers/xapi";
+
 import { Language } from "../../providers/language";
 import { Camera, Transfer } from 'ionic-native';
 
+import { Post } from '../../fireframe2/post';
+
 export interface  PostEdit {
+    key : string;
     category: string;
     ID : number;
     post_title: string;
@@ -27,7 +29,7 @@ export interface  PostEdit {
     templateUrl: 'post-edit.html'
 })
 export class PostEditPage {
-    post : PostEdit = <PostEdit> {
+    data : PostEdit = <PostEdit> {
         category : 'housemaid'
     };
 
@@ -66,12 +68,11 @@ export class PostEditPage {
     // cordova plugin file Transfer
     private fileTransfer: Transfer;
     constructor(public navCtrl: NavController,
-                private postEditService: PostEditService,
                 private navParams: NavParams,
                 private events: Events,
-                private x: Xapi,
                 private alertCtrl: AlertController,
                 private language: Language,
+                private post: Post,
                 platform: Platform
 
     ) {
@@ -102,41 +103,33 @@ export class PostEditPage {
         events.subscribe('file-upload-success', x => this.onSuccessFileUpload(x[0]));
         this.post_ID = navParams.get('post_ID');
         if ( this.post_ID ) {
-            postEditService.load( this.post_ID, p => {
-                console.log(p);
-                this.post.ID = this.post_ID ;
-                this.post.post_title = p.post_title;
-                this.post.post_content = p.post_content;
-                this.post.first_name = p.meta.first_name;
-                this.post.middle_name = p.meta.middle_name;
-                this.post.last_name = p.meta.last_name;
-                this.post.gender = p.meta.gender;
-                this.post.mobile = p.meta.mobile;
-                this.post.address = p.meta.address;
-                this.post.birthday = p.meta.birthday;
-                if ( p.images ) {
-                    this.urlPhoto = p.images[Object.keys( p.images ).pop()];
-                }
-            });
+
         }
     }
 
 
     onClickPost() {
         this.loader = true;
-        this.postEditService.submit( this.post, res => {
-            this.loader = false;
-            console.log("onClickPost::callback(), ", res );
-            this.x.alert("SUCCESS", "Your post has been posted.");
-            this.navCtrl.pop();
-        }, err => {
-            this.loader = false;
-            console.log("err");
-        });
+        this.post
+            .sets( this.data )
+            .create( () => {
+                this.loader = false;
+                let alert = this.alertCtrl.create({
+                    title: 'SUCCESS',
+                    subTitle: 'Your post has been posted.',
+                    buttons: ['OK']
+                });
+                alert.present();
+                this.navCtrl.pop();
+                console.log( 'onclickPost::Success' );
+            }, e => {
+                this.loader = false;
+                console.log( 'onclickPost::Failed' + e );
+            });
     }
 
     onChangeFileBrowser( $event ) {
-        this.postEditService.upload( $event.target.files );
+       // this.postEditService.upload( $event.target.files );
     }
 
 
@@ -172,11 +165,11 @@ export class PostEditPage {
 
 
     onClickCameraButton() {
-        this.appTakePhoto( Camera.PictureSourceType.CAMERA);
+       // this.appTakePhoto( Camera.PictureSourceType.CAMERA);
     }
 
     onClickGalleryButton() {
-        this.appTakePhoto( Camera.PictureSourceType.PHOTOLIBRARY );
+      //  this.appTakePhoto( Camera.PictureSourceType.PHOTOLIBRARY );
     }
 
     appTakePhoto( type: number ) {
@@ -205,25 +198,7 @@ export class PostEditPage {
             headers: {}
         };
 
-        this.fileTransfer.upload( filepath, this.x.uploadUrl, options)
-            .then( res => {
-                    console.log('success', res );
-                    let re; // result of json parse
-                    try {
-                        re = JSON.parse( res.response );
-                    }
-                    catch ( e ) {
-                        this.x.error("JSON parse error on fileTransfer.uploader()");
-                        return;
-                    }
 
-                    console.log( re );
-                    this.onSuccessFileUpload( re.data );
-
-                },
-                error => {
-                    console.log('error', error);
-                });
     }
 
     /* @note this method is called on file upload success.
@@ -232,8 +207,9 @@ export class PostEditPage {
      */
     private onSuccessFileUpload( file ) {
         this.urlPhoto = file.url;
-        this.post.fid = [file.id];
+        this.data.fid = [file.id];
     }
+
 
 }
 

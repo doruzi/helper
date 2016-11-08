@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { Xapi } from "../../xmodule/providers/xapi";
-import * as xi from "../../xmodule/interfaces/xapi";
 import { PostEditPage } from "../post-edit/post-edit";
 import { Language } from "../../providers/language";
 
@@ -32,7 +30,6 @@ export class PostListPage {
         public navCtrl: NavController,
         private navParams: NavParams,
         private alertCtrl: AlertController,
-        private x: Xapi,
         private language: Language
     ) {
         console.log( 'PostListPage::constructor()', navParams.data);
@@ -59,28 +56,7 @@ export class PostListPage {
 
 
     loadPosts( finished? ) {
-        let arg : xi.PostQuery = xi.postQuery;
-        arg.category_name = this.slug;
-        arg.paged = this.page ++;
-        arg.per_page = 15;
-        this.x.get_posts( arg, (res: xi.PostQueryResponse) => {
-                if ( res.success ) {
-                    if ( res.data && res.data.length ) {
-                        this.displayPosts( res.data );
-                    }
-                    else {
-                        console.log('No more posts');
-                    }
-                }
-                else {
-                    if ( res.data ) alert( res.data );
-                    else alert("Error on post list");
-                }
-                if ( finished ) finished();
-            },
-            e => {
-                if ( finished ) finished();
-            } );
+
     }
 
     displayPosts( data ) {
@@ -130,20 +106,7 @@ export class PostListPage {
                     text: 'Delete',
                     handler: data => {
                         console.log('Delete clicked');
-                        this.x.delete_post( { post_ID: post_ID, password: data.password }, re => {
-                            prompt.dismiss();
-                            if ( re.success ) {
-                                console.log("PostListPage::onDelete() deleted");
-                                this.x.alert("SUCCESS", "Your post has been deleted.");
-                                this.posts.splice(i,1);
-                            }
-                            else {
-                                console.log("PostListPage::onDelete() failed to delete");
-                                this.x.alert('ERROR', re.data );
-                            }
-                        }, err => {
-                            console.log("server error?..." , err)
-                        })
+
                     }
                 }
             ]
