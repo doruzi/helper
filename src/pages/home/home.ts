@@ -53,8 +53,8 @@ export class HomePage {
 
 //    x.serverUrl = "http://work.org/wordpress/index.php";
 //    x.serverUrl = "http://www.philgo.net/index.php";
-//    setTimeout( () => navCtrl.push( PostEditPage ), 600 );
-//    setTimeout( () => navCtrl.push( PostListPage, {slug: 'housemaid'} ), 1000 );
+      navCtrl.push( PostEditPage );
+//    navCtrl.push( PostListPage, {slug: 'housemaid'} );
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
 
 

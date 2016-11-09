@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { PostEditPage } from "../post-edit/post-edit";
 import { Language } from "../../providers/language";
 import { Post } from '../../fireframe2/post';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-post-list',
@@ -11,11 +12,10 @@ import { Post } from '../../fireframe2/post';
 export class PostListPage {
   appTitle: string = "Helper List";
   slug: string;
-  page: number = 1;
   posts = [];
   moreButton = [];
   lastDisplayedKey: string = '';
-  endPost: boolean = false;
+  noMorePost: boolean = false;
   text = {
     personalInformation: 'Personal Information',
     name: 'Name',
@@ -58,63 +58,30 @@ export class PostListPage {
   }
 
 
-  loadPosts( finished? ) {
-    this.post
-      .set('lastKey', this.lastDisplayedKey )
-      .set('limitToLast', '11' )
-      .fetch( snapshot =>{
-        if(snapshot) this.displayPosts( snapshot );
-        if ( finished ) finished();
-      }, e=>{
-        if ( finished ) finished();
-        console.info(e);
-      })
+  loadPosts( infinite? ) {
+      this.post
+        .nextPage( data => {
+          if ( infinite ) infinite.complete();
+          if ( ! _.isEmpty(data) ) this.displayPosts( data );
+          else {
+            this.noMorePost = true;
+            infinite.enable( false );
+          }
+        },
+        e => {
+          if ( infinite ) infinite.complete();
+          console.log("fetch failed: ", e);
+        });
   }
-
   displayPosts( data ) {
-
-    // if( this.lastDisplayedKey == Object.keys(data).shift() ) return;
-
-    // save last key
-    this.lastDisplayedKey = Object.keys(data).shift();
-    console.log('displayPosts data:: ', data);
-
-    let temp = [];
-    //reversing retrieve data
-    for ( let key in data ) {
-      temp.unshift( {'key': key , 'value': data[key]});
-    }
-
-    console.log('temp:: ', temp);
-    //adding arranged data to posts container
-    for ( let key in temp ) {
-      this.posts.push(temp[key]);
-    }
-
-    //check if it reached the end post
-    if(Object.keys(temp).length <= 10 ){
-      let alert = this.alertCtrl.create({
-        title: 'No More Post',
-        subTitle: 'No More Post to Display...',
-        buttons: ['OK']
-      });
-      alert.present();
-      if(this.endPost) this.posts.pop();
-      this.endPost = true;
-    }
-    else {
-      this.posts.pop();
-    }
-
-    console.log('posts:: ', this.posts);
-
+      for( let key of Object.keys(data).reverse() ) {
+        this.posts.push ( {key: key, value: data[key]} );
+      }
   }
 
   doInfinite( infiniteScroll ) {
 
-    this.loadPosts( () => {
-      infiniteScroll.complete();
-    });
+    this.loadPosts( infiniteScroll );
 
   }
 
