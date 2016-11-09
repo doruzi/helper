@@ -59,9 +59,6 @@ export class PostListPage {
 
 
   loadPosts( finished? ) {
-
-
-
     this.post
       .set('lastKey', this.lastDisplayedKey )
       .set('limitToLast', '11' )
@@ -75,10 +72,13 @@ export class PostListPage {
   }
 
   displayPosts( data ) {
+
+    // if( this.lastDisplayedKey == Object.keys(data).shift() ) return;
+
     // save last key
-    console.log('displayPosts data:: ', data);
     this.lastDisplayedKey = Object.keys(data).shift();
-    Object.keys(data).pop();
+    console.log('displayPosts data:: ', data);
+
     let temp = [];
     //reversing retrieve data
     for ( let key in data ) {
@@ -86,12 +86,13 @@ export class PostListPage {
     }
 
     console.log('temp:: ', temp);
-    //adding arrange data to posts content
+    //adding arranged data to posts container
     for ( let key in temp ) {
       this.posts.push(temp[key]);
     }
 
-    if(Object.keys(temp).length == 1 && this.lastDisplayedKey != ''){
+    //check if it reached the end post
+    if(Object.keys(temp).length <= 10 ){
       let alert = this.alertCtrl.create({
         title: 'No More Post',
         subTitle: 'No More Post to Display...',
@@ -104,8 +105,8 @@ export class PostListPage {
     else {
       this.posts.pop();
     }
-    console.log('posts:: ', this.posts);
 
+    console.log('posts:: ', this.posts);
 
   }
 
@@ -118,12 +119,13 @@ export class PostListPage {
   }
 
 
-  onClickEdit( post_ID ) {
+  onClickEdit( key ) {
+    console.info('onClickEdit:: key' + key);
     this.navCtrl.pop();
-    this.navCtrl.push( PostEditPage, { post_ID: post_ID });
+    this.navCtrl.push( PostEditPage, { postKey: key });
   }
 
-  onClickDelete( post_ID, i ) {
+  onClickDelete( postKey, i ) {
     let prompt = this.alertCtrl.create({
       title: 'Delete',
       message: "Enter password of the post",
@@ -144,12 +146,28 @@ export class PostListPage {
           text: 'Delete',
           handler: data => {
             console.log('Delete clicked');
-
+            this.post
+              .set('key', postKey )
+              .delete( () => {
+                this.promptAlert( 'SUCCESS', 'Your post has been deleted.' );
+                this.posts.splice( i , 1 );
+              }, e => {
+                console.info('Delete Post:: with key ' + postKey );
+              });
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  promptAlert( title, message ) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 

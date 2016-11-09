@@ -36,7 +36,7 @@ export class PostEditPage {
 
     urlPhoto: string = "x-assets/img/anonymous.gif";
     loader: boolean = false;
-    post_ID: number;
+    postKey: string;
     photoId: number = 0;
 
     browser: boolean = false;
@@ -102,14 +102,39 @@ export class PostEditPage {
         else this.browser = true;
 
         events.subscribe('file-upload-success', x => this.onSuccessFileUpload(x[0]));
-        this.post_ID = navParams.get('post_ID');
-        if ( this.post_ID ) {
+        this.postKey = navParams.get('postKey');
+      console.info('navParams:: ' , this.postKey);
 
+        if ( this.postKey ) {
+          console.log("PostEditPage:: post edit key=" + this.postKey);
+          this.post
+            .set('key', this.postKey)
+            .get( snapValue => {
+              if( snapValue ) {
+                console.info('snapValue:: ', snapValue);
+                this.data.key = this.postKey ;
+                this.data.post_title = snapValue.post_title;
+                this.data.post_content = snapValue.post_content;
+                this.data.first_name = snapValue.first_name;
+                this.data.middle_name = snapValue.middle_name;
+                this.data.last_name = snapValue.last_name;
+                this.data.gender = snapValue.gender;
+                this.data.mobile = snapValue.mobile;
+                this.data.address = snapValue.address;
+                this.data.birthday = snapValue.birthday;
+              }else {
+                console.log('Key Doesnt Exist');
+              }
+
+            },e =>{
+              console.info('Post get() fail on key:' + this.postKey + ', Error:' + e);
+            });
         }
+
 /*
         let date = new Date;
         let stamp;
-        for(let i = 0; i < 100; i++) {
+        for(let i = 1; i <= 100; i++) {
 
           stamp = date.getTime();
           this.post
@@ -131,12 +156,11 @@ export class PostEditPage {
             }, e => {
               this.loader = false;
               console.log( 'onclickPost::Failed' + e );
-            });
-
+            })
 
         }
+*/
 
-        */
     }
 
 
