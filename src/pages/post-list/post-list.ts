@@ -5,151 +5,139 @@ import { Language } from "../../providers/language";
 import { Post } from '../../fireframe2/post';
 
 @Component({
-    selector: 'page-post-list',
-    templateUrl: 'post-list.html'
+  selector: 'page-post-list',
+  templateUrl: 'post-list.html'
 })
 export class PostListPage {
-    appTitle: string = "Helper List";
-    slug: string;
-    page: number = 1;
-    posts = [];
-    moreButton = [];
-    text = {
-        personalInformation: 'Personal Information',
-      name: 'Name',
-      gender: 'Gender',
-      age: 'Age',
-      mobile: 'Mobile #',
-      address: 'Address',
-      more: 'More',
-      less: 'Less',
-      edit: 'Edit',
-      delete: 'Delete',
-    };
-    constructor(
-        public navCtrl: NavController,
-        private navParams: NavParams,
-        private alertCtrl: AlertController,
-        private language: Language,
-        private post: Post,
-    ) {
-        console.log( 'PostListPage::constructor()', navParams.data);
-        this.slug = this.navParams.get( 'slug' );
+  appTitle: string = "Helper List";
+  slug: string;
+  page: number = 1;
+  posts = [];
+  moreButton = [];
+  lastDisplayedKey: string = '';
+  text = {
+    personalInformation: 'Personal Information',
+    name: 'Name',
+    gender: 'Gender',
+    age: 'Age',
+    mobile: 'Mobile #',
+    address: 'Address',
+    more: 'More',
+    less: 'Less',
+    edit: 'Edit',
+    delete: 'Delete',
+  };
+  constructor(
+    public navCtrl: NavController,
+    private navParams: NavParams,
+    private alertCtrl: AlertController,
+    private language: Language,
+    private post: Post,
+  ) {
+    console.log( 'PostListPage::constructor()', navParams.data);
+    this.slug = this.navParams.get( 'slug' );
 
 
-        if( language.checkCode() ) {
-            this.appTitle = language.get('titlePostList');
-            this.text.personalInformation = language.get('personalInformation');
-            this.text.name = language.get('name');
-            this.text.gender = language.get('gender');
-            this.text.age = language.get('age');
-            this.text.mobile = language.get('mobile');
-            this.text.address = language.get('address');
-            this.text.more = language.get('more');
-            this.text.less = language.get('less');
-            this.text.edit = language.get('edit');
-            this.text.delete = language.get('delete');
-        }
-
-
-        this.loadPosts();
+    if( language.checkCode() ) {
+      this.appTitle = language.get('titlePostList');
+      this.text.personalInformation = language.get('personalInformation');
+      this.text.name = language.get('name');
+      this.text.gender = language.get('gender');
+      this.text.age = language.get('age');
+      this.text.mobile = language.get('mobile');
+      this.text.address = language.get('address');
+      this.text.more = language.get('more');
+      this.text.less = language.get('less');
+      this.text.edit = language.get('edit');
+      this.text.delete = language.get('delete');
     }
 
 
-    loadPosts( finished? ) {
+    this.loadPosts();
+  }
+
+
+  loadPosts( finished? ) {
 
 
 
-      this.post
-        .set('order', 'key')
-        .set('startAt', '0')
-        .set('limit', '10')
-        .fetch( snapshot =>{
+    this.post
+      .set('lastKey', this.lastDisplayedKey )
+      .set('limitToLast', '11' )
+      .fetch( snapshot =>{
         if(snapshot) this.displayPosts( snapshot );
         if ( finished ) finished();
       }, e=>{
         if ( finished ) finished();
         console.info(e);
       })
+  }
+
+  displayPosts( data ) {
+    // save last key
+    this.lastDisplayedKey = Object.keys(data).shift();
+    Object.keys(data).pop();
+    let temp = [];
+    //reversing retrieve data
+    for ( let key in data ) {
+      temp.unshift(data[key]);
+    }
+    //adding arrange data to posts content
+    for ( let key in temp ) {
+      this.posts.push(temp[key]);
     }
 
-    displayPosts( data ) {
+    this.posts.pop();
 
-        console.log( 'success', data );
-        /*for ( let post in data ) {
-          console.log(data[post]);
-            this.posts.push( data[post] );
-        }*/
+  }
 
+  doInfinite( infiniteScroll ) {
 
-        /*###################### testing on getting 10 post
+    this.loadPosts( () => {
+      infiniteScroll.complete();
+    });
 
-         /**
-         * Returns requested data in the path
-
-      fetch( successCallback, failureCallback ) {
-        let ref = this.object.$ref;
-        ref.orderByKey()
-          .limitToLast(10)
-          .on("child_added", (snapshot) => {
-            successCallback( snapshot.val() );
-          }, failureCallback );
-      }
-
-        #######################*/
-        this.posts.push( data );
-        console.log(this.posts);
-
-    }
+  }
 
 
-    doInfinite( infiniteScroll ) {
+  onClickEdit( post_ID ) {
+    this.navCtrl.pop();
+    this.navCtrl.push( PostEditPage, { post_ID: post_ID });
+  }
 
-        this.loadPosts( () => {
-            infiniteScroll.complete();
-        });
+  onClickDelete( post_ID, i ) {
+    let prompt = this.alertCtrl.create({
+      title: 'Delete',
+      message: "Enter password of the post",
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Input password'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: data => {
+            console.log('Delete clicked');
 
-    }
-
-
-    onClickEdit( post_ID ) {
-        this.navCtrl.pop();
-        this.navCtrl.push( PostEditPage, { post_ID: post_ID });
-    }
-
-    onClickDelete( post_ID, i ) {
-        let prompt = this.alertCtrl.create({
-            title: 'Delete',
-            message: "Enter password of the post",
-            inputs: [
-                {
-                    name: 'password',
-                    placeholder: 'Input password'
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Delete',
-                    handler: data => {
-                        console.log('Delete clicked');
-
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
 
 
-    ionViewWillEnter() {
-        console.log('PostList::ionViewWillEnter')
-    }
+  ionViewWillEnter() {
+    console.log('PostList::ionViewWillEnter')
+  }
 
 
 }
