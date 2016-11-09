@@ -15,10 +15,22 @@
 
 <ion-content padding>
 
-  <ion-card>
-    <div (click)="onClickPhoto()"><img [src]="urlPhoto"></div>
-    <input *ngIf=" browser " type="file" (change)="onChangeFileBrowser($event)">
-  </ion-card>
+
+        <ion-item>
+        <div *ngIf=" urlPhoto " (click)="onClickPhoto()">
+          <img [src]="urlPhoto">
+        </div>
+        <div *ngIf=" data?.urlPhoto ">
+          <button ion-button (click)="onClickDeletePhoto( data.refPhoto )">DELETE</button>
+        </div>
+        <input *ngIf=" ! cordova " type="file" (change)="onChangeFile($event)">
+        <div *ngIf=" file_progress ">
+          <progress [value]="position" max="100"></progress>
+        </div>
+      </ion-item>
+
+
+
 
   <hr>
   <ion-list text-wrap>

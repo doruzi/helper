@@ -61,6 +61,7 @@ export class PostListPage {
   loadPosts( infinite? ) {
       this.post
         .nextPage( data => {
+          console.log('loadPoss: ', data);
           if ( infinite ) infinite.complete();
           if ( ! _.isEmpty(data) ) this.displayPosts( data );
           else {

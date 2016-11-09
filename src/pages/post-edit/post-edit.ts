@@ -5,6 +5,7 @@ import { Language } from "../../providers/language";
 import { Camera, Transfer } from 'ionic-native';
 
 import { Post } from '../../fireframe2/post';
+import { Data } from '../../fireframe2/data';
 
 
 export interface  PostEdit {
@@ -22,6 +23,8 @@ export interface  PostEdit {
     address: string;
     gender: 'M' | 'F' | '';
     fid: Array<string>;
+    urlPhoto?: string;
+    refPhoto?: string;
 }
 
 
@@ -34,12 +37,18 @@ export class PostEditPage {
         category : 'housemaid'
     };
 
-    urlPhoto: string = "x-assets/img/anonymous.gif";
+    urlPhoto: string = "assets/img/photo.png";
     loader: boolean = false;
     postKey: string;
     photoId: number = 0;
 
-    browser: boolean = false;
+    result = null;
+    progress = null;
+    error = null;
+    file_progress = null;
+    position = 0;
+
+
     cordova: boolean = false;
 
     appTitle: string = "Post Edit";
@@ -74,7 +83,8 @@ export class PostEditPage {
                 private alertCtrl: AlertController,
                 private language: Language,
                 private post: Post,
-                platform: Platform
+                platform: Platform,
+                private file: Data
 
     ) {
         if( language.checkCode() ) {
@@ -99,9 +109,7 @@ export class PostEditPage {
             this.text.personalContent = language.get('personalContent');
         }
         if ( platform.is('cordova') ) this.cordova = true;
-        else this.browser = true;
 
-        events.subscribe('file-upload-success', x => this.onSuccessFileUpload(x[0]));
         this.postKey = navParams.get('postKey');
       console.info('navParams:: ' , this.postKey);
 
@@ -122,6 +130,9 @@ export class PostEditPage {
                 this.data.mobile = snapValue.mobile;
                 this.data.address = snapValue.address;
                 this.data.birthday = snapValue.birthday;
+                this.data.urlPhoto = snapValue.urlPhoto;
+                this.data.refPhoto = snapValue.refPhoto;
+                this.urlPhoto = this.data.urlPhoto;
               }else {
                 console.log('Key Doesnt Exist');
               }
@@ -184,86 +195,38 @@ export class PostEditPage {
             });
     }
 
-    onChangeFileBrowser( $event ) {
-       // this.postEditService.upload( $event.target.files );
+
+    onFileUploaded( url, ref ) {
+        this.file_progress = false;
+        this.urlPhoto = url;
+        this.data.urlPhoto = url;
+        this.data.refPhoto = ref;
+    }
+    onChangeFile(event) {
+        let file = event.target.files[0];
+        if ( file === void 0 ) return;
+        this.file_progress = true;
+        let ref = 'user-primary-photo/' + Date.now() + '/' + file.name;
+        this.file.upload( { file: file, ref: ref }, uploaded => {
+            this.onFileUploaded( uploaded.url, uploaded.ref );
+        },
+        e => {
+            this.file_progress = false;
+            alert(e);
+        },
+        percent => {
+            this.position = percent;
+        } );
     }
 
-
-    onClickPhoto() {
-        if ( ! this.cordova ) return;
-
-
-        let confirm = this.alertCtrl.create({
-            title: 'PHOTO UPLOAD',
-            message: 'Do you want to take photo? or choose photo from gallery?',
-            cssClass: 'alert-primary-photo',
-            buttons: [
-                {
-                    text: 'Camera',
-                    handler: () => this.onClickCameraButton()
-                },
-                {
-                    text: 'Gallery',
-                    handler: () => this.onClickGalleryButton()
-                },
-                {
-                    text: 'Cancel',
-                    handler: () => {
-                        console.log('cancel clicked');
-                    }
-                }
-            ]
-        });
-        confirm.present();
-
-
-    }
-
-
-    onClickCameraButton() {
-       // this.appTakePhoto( Camera.PictureSourceType.CAMERA);
-    }
-
-    onClickGalleryButton() {
-      //  this.appTakePhoto( Camera.PictureSourceType.PHOTOLIBRARY );
-    }
-
-    appTakePhoto( type: number ) {
-        let options = {
-            sourceType: type,
-            destinationType: Camera.DestinationType.NATIVE_URI,
-            quality: 100
-        };
-        Camera.getPicture( options ).then((imageData) => {
-            console.log( imageData );
-            //this.urlPrimaryPhoto = imageData;
-            this.appFileUpload( imageData );
-        }, ( message ) => {
-            console.log("Error: ", message);
-        });
-    }
-
-
-    appFileUpload( filepath : string ) {
-        console.log( 'appFileUpload()', filepath );
-        this.fileTransfer = new Transfer();
-        let options: any;
-        options = {
-            fileKey: 'file',
-            fileName: 'name.jpg',
-            headers: {}
-        };
-
-
-    }
-
-    /* @note this method is called on file upload success.
-     *
-     * @todo let mobile upload to call this method.
-     */
-    private onSuccessFileUpload( file ) {
-        this.urlPhoto = file.url;
-        this.data.fid = [file.id];
+    onClickDeletePhoto( ref ) {
+        this.file.delete( ref, () => {
+            this.urlPhoto = null;
+            this.data.urlPhoto = null;
+            this.data.refPhoto = null;
+        }, e => {
+            alert("FILE DELETE ERROR: " + e);
+        } );
     }
 
 
