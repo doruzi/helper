@@ -15,23 +15,23 @@
             <ion-card-content no-padding>
                 <div>
                     <ion-card-title>
-                        {{ post.post_title }}
+                        {{ post.value.post_title }}
                     </ion-card-title>
                     <p>
-                        {{ post.post_content }}
+                        {{ post.value.post_content }}
                     </p>
-                    <ion-note item-right>{{ post.post_date  }}</ion-note>
+                    <ion-note item-right>{{ post.value.post_date  }}</ion-note>
                 </div>
                 <div *ngIf="moreButton[i]">
                     <ion-item-group text-wrap>
                         <ion-item-divider light>
                           {{text.personalInformation}}
                         </ion-item-divider>
-                        <ion-item><ion-label>{{text.name}} : {{ post.first_name }} {{ post.middle_name }} {{ post.last_name }}</ion-label></ion-item>
-                        <ion-item><ion-label>{{text.gender}} : {{ post.gender }}</ion-label></ion-item>
-                        <ion-item><ion-label>{{text.age}} : {{ post.birthday | ageCalculator }}</ion-label></ion-item>
-                        <ion-item><ion-label>{{text.mobile}} : {{ post.mobile }}</ion-label></ion-item>
-                        <ion-item><ion-label>{{text.address}} : {{ post.address }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.name}} : {{ post.value.first_name }} {{ post.value.middle_name }} {{ post.value.last_name }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.gender}} : {{ post.value.gender }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.age}} : {{ post.value.birthday | ageCalculator }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.mobile}} : {{ post.value.mobile }}</ion-label></ion-item>
+                        <ion-item><ion-label>{{text.address}} : {{ post.value.address }}</ion-label></ion-item>
                     </ion-item-group>
                 </div>
             </ion-card-content>
@@ -47,13 +47,13 @@
                     </button>
                 </ion-col>
                 <ion-col>
-                    <button ion-button clear small no-padding (click)="onClickEdit(post.ID)">
+                    <button ion-button clear small no-padding (click)="onClickEdit(post.value.ID)">
                         <ion-icon name='open'></ion-icon>
                         {{text.edit}}
                     </button>
                 </ion-col>
                 <ion-col>
-                    <button ion-button clear small no-padding (click)="onClickDelete(post.ID , i)">
+                    <button ion-button clear small no-padding (click)="onClickDelete(post.key , i)">
                         <ion-icon name='trash'></ion-icon>
                         {{text.delete}}
                     </button>

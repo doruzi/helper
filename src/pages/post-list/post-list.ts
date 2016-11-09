@@ -15,6 +15,7 @@ export class PostListPage {
   posts = [];
   moreButton = [];
   lastDisplayedKey: string = '';
+  endPost: boolean = false;
   text = {
     personalInformation: 'Personal Information',
     name: 'Name',
@@ -75,19 +76,36 @@ export class PostListPage {
 
   displayPosts( data ) {
     // save last key
+    console.log('displayPosts data:: ', data);
     this.lastDisplayedKey = Object.keys(data).shift();
     Object.keys(data).pop();
     let temp = [];
     //reversing retrieve data
     for ( let key in data ) {
-      temp.unshift(data[key]);
+      temp.unshift( {'key': key , 'value': data[key]});
     }
+
+    console.log('temp:: ', temp);
     //adding arrange data to posts content
     for ( let key in temp ) {
       this.posts.push(temp[key]);
     }
 
-    this.posts.pop();
+    if(Object.keys(temp).length == 1 && this.lastDisplayedKey != ''){
+      let alert = this.alertCtrl.create({
+        title: 'No More Post',
+        subTitle: 'No More Post to Display...',
+        buttons: ['OK']
+      });
+      alert.present();
+      if(this.endPost) this.posts.pop();
+      this.endPost = true;
+    }
+    else {
+      this.posts.pop();
+    }
+    console.log('posts:: ', this.posts);
+
 
   }
 
