@@ -53,7 +53,7 @@ export class PostListPage {
       this.text.delete = language.get('delete');
     }
 
-
+    this.post.pagination_key = '';
     this.loadPosts();
   }
 

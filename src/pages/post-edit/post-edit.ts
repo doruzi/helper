@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Platform, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
 import { Language } from "../../providers/language";
-import { Camera, Transfer } from 'ionic-native';
+import { Camera } from 'ionic-native';
 
 import { Post } from '../../fireframe2/post';
-import { Data } from '../../fireframe2/data';
+import { Data, FILE_UPLOAD } from '../../fireframe2/data';
 
 
 export interface  PostEdit {
@@ -76,7 +76,7 @@ export class PostEditPage {
     };
 
     // cordova plugin file Transfer
-    private fileTransfer: Transfer;
+    //private fileTransfer: Transfer;
     constructor(public navCtrl: NavController,
                 private navParams: NavParams,
                 private events: Events,
@@ -228,6 +228,67 @@ export class PostEditPage {
             alert("FILE DELETE ERROR: " + e);
         } );
     }
+
+  onClickPhoto() {
+    if ( ! this.cordova ) return;
+    console.log('onClickPhoto()');
+    let confirm = this.alertCtrl.create({
+      title: 'PHOTO UPLOAD',
+      message: 'Do you want to take photo? or choose photo from gallery?',
+      cssClass: 'alert-camera-selection',
+      buttons: [
+        {
+          text: 'Camera',
+          handler: () => this.cameraTakePhoto( Camera.PictureSourceType.CAMERA )
+        },
+        {
+          text: 'Gallery',
+          handler: () => this.cameraTakePhoto( Camera.PictureSourceType.PHOTOLIBRARY )
+        },
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('cancel clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  cameraTakePhoto( type: number ) {
+    console.log('cameraTakePhoto()');
+    let options = {
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: type,
+      encodingType: Camera.EncodingType.JPEG,
+      quality: 100
+    };
+
+    Camera.getPicture(options).then((imageData) => {
+      this.file_progress = true;
+      let ref = 'user-primary-photo/' + Date.now() + '/' + 'primary-photo.jpg';
+      let data : FILE_UPLOAD = {
+        file : {
+          name: 'primary-photo.jpg',
+          type: 'image/jpeg'
+        },
+        ref: ref,
+        base64: imageData
+      }
+      this.file.upload( data, uploaded => {
+          this.onFileUploaded( uploaded.url, uploaded.ref );
+        },
+        e => {
+          this.file_progress = true;
+          alert( e );
+        },
+        percent => {
+
+        } );
+    }, (err) => { alert(err); });
+
+  }
 
 
 }
