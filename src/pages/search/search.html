@@ -59,8 +59,8 @@
         <ion-avatar item-left>
           <img src="{{post.image}}"/>
         </ion-avatar>
-        <div>{{ post.post_title }}</div>
-        <div>{{ post.post_content }}</div>
+        <div>{{ post.value.post_title }}</div>
+        <div>{{ post.value.post_content }}</div>
         <button ion-button clear small item-right no-padding (click)="moreButton[i] = !moreButton[i]" *ngIf="!moreButton[i]">
           <ion-icon name='arrow-dropdown-circle'></ion-icon>
           {{text.more}}
@@ -79,11 +79,11 @@
             &nbsp; {{text.edit}}
           </button>
         </ion-item-divider>
-        <ion-item><ion-label>{{text.name}} : {{ post.meta.first_name }} {{ post.meta.last_name }}</ion-label></ion-item>
-        <ion-item><ion-label>{{text.gender}} : {{ post.meta.gender }}</ion-label></ion-item>
-        <ion-item><ion-label>{{text.age}} : {{ post.meta.birthday  | ageCalculator }}</ion-label></ion-item>
-        <ion-item><ion-label>{{text.mobile}} : {{ post.meta.mobile }}</ion-label></ion-item>
-        <ion-item><ion-label>{{text.address}} : {{ post.meta.address }}</ion-label></ion-item>
+        <ion-item><ion-label>{{text.name}} : {{ post.value.first_name }} {{ post.value.last_name }}</ion-label></ion-item>
+        <ion-item><ion-label>{{text.gender}} : {{ post.value.gender }}</ion-label></ion-item>
+        <ion-item><ion-label>{{text.age}} : {{ post.value.birthday  | ageCalculator }}</ion-label></ion-item>
+        <ion-item><ion-label>{{text.mobile}} : {{ post.value.mobile }}</ion-label></ion-item>
+        <ion-item><ion-label>{{text.address}} : {{ post.value.address }}</ion-label></ion-item>
       </ion-item-group>
       <br />
     </ion-item-group>

@@ -54,7 +54,8 @@ export class HomePage {
 //    x.serverUrl = "http://work.org/wordpress/index.php";
 //    x.serverUrl = "http://www.philgo.net/index.php";
 //    navCtrl.push( PostEditPage );
-    navCtrl.push( PostListPage );
+//    navCtrl.push( PostListPage );
+    navCtrl.push( SearchPage );
 //    setTimeout( () => navCtrl.push( PostEditPage, {post_ID: 431} ), 1000 );
 
 
