@@ -53,18 +53,19 @@ export class PostListPage {
       this.text.delete = language.get('delete');
     }
 
-    this.post.pagination_key = '';
+    this.post.resetPagination();
     this.loadPosts();
   }
 
 
   loadPosts( infinite? ) {
       this.post
+        .set('numberOfPosts', 40)
         .nextPage( data => {
           console.log('loadPoss: ', data);
           if ( infinite ) infinite.complete();
-          if ( ! _.isEmpty(data) ) this.displayPosts( data );
-          else {
+          this.displayPosts( data );
+          if ( this.post.isLastPage() ) {
             this.noMorePost = true;
             infinite.enable( false );
           }
@@ -75,6 +76,7 @@ export class PostListPage {
         });
   }
   displayPosts( data ) {
+    if ( data === void 0 || data == '' ) return;
       for( let key of Object.keys(data).reverse() ) {
         this.posts.push ( {key: key, value: data[key]} );
       }
