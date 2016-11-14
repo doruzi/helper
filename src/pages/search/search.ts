@@ -104,11 +104,34 @@ export class SearchPage {
     this.searching = false;
   }
   search( $event? ) {
+    let gender = '';
+    let today = new Date();
+    let yy = today.getFullYear();
+    let mm: string | number = today.getMonth()+1;
+    let dd: string | number = today.getDate();
+    if(dd<10){
+      dd='0'+dd
+    }
+    if(mm<10){
+      mm='0'+mm
+    }
+    console.log('Year '+yy+' Month '+mm+' Day '+dd);
+    console.log('FROM ::', yy-this.searchByAge.lower+'-'+mm+'-'+dd );
+    console.log('TO ::', yy-this.searchByAge.upper+'-'+mm+'-'+dd );
+    if((this.data.male) && ( ! this.data.female)) {
+      gender = 'M';
+    }
+    else if ((! this.data.male) && (this.data.female)) {
+      gender = 'F';
+    }
     this.posts = [];
     this.showLoader();
     console.log("search()");
     this.post
-      .set('numberOfPosts', 5)
+      .set('gender', gender )
+      .set('minAge', yy-this.searchByAge.lower+'-'+mm+'-'+dd)
+      .set('maxAge', yy-this.searchByAge.upper+'-'+mm+'-'+dd)
+      .set('numberOfPosts', 20 )
       .search( snapValue =>{
       this.onSearchComplete( snapValue );
     }, e =>{
