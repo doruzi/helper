@@ -142,10 +142,11 @@ export class PostEditPage {
             });
         }
 
-/*
+
+        this.post.path = 'helper/posts';
         let date = new Date;
         let stamp;
-        for(let i = 1; i <= 100; i++) {
+        for(let i = 1; i <= 50; i++) {
 
           stamp = date.getTime();
           this.post
@@ -170,7 +171,7 @@ export class PostEditPage {
             })
 
         }
-*/
+
 
     }
 
